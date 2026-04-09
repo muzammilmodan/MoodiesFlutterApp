@@ -1,0 +1,37 @@
+name: moodiesapp
+description: Moodies App - Kids Mood Tracker (Firebase)
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^3.3.0
+  firebase_auth: ^5.1.4
+  cloud_firestore: ^5.2.1
+  shared_preferences: ^2.2.2
+  connectivity_plus: ^5.0.2
+  cached_network_image: ^3.3.0
+  audioplayers: ^6.6.0
+  permission_handler: ^11.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/fonts/
+  fonts:
+    - family: ChocoCooky
+      fonts:
+        - asset: assets/fonts/chococooky.ttf
+    - family: NanumPen
+      fonts:
+        - asset: assets/fonts/nanum_pen_script_regular.ttf
