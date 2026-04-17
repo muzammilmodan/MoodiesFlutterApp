@@ -10,7 +10,7 @@ class UserModel {
   final String email;
   final String role;       // 'parent' | 'kides'
   final int    isChild;    // 0=parent, 1=kids
-  final String code;       // unique child linking code
+  final String myCode;       // unique child linking code
   final String parentEmail;
 
   UserModel({
@@ -19,7 +19,7 @@ class UserModel {
     required this.email,
     required this.role,
     required this.isChild,
-    required this.code,
+    required this.myCode,
     required this.parentEmail,
   });
 
@@ -29,7 +29,7 @@ class UserModel {
     email:       m['email']        ?? '',
     role:        m['role']         ?? '',
     isChild:     m['is_child']     ?? 0,
-    code:        m['code']         ?? '',
+    myCode:        m['code']         ?? '',
     parentEmail: m['parent_email'] ?? '',
   );
 
@@ -38,7 +38,7 @@ class UserModel {
     'email':        email,
     'role':         role,
     'is_child':     isChild,
-    'code':         code,
+    'code':         myCode,
     'parent_email': parentEmail,
     'created_at':   FieldValue.serverTimestamp(),
   };

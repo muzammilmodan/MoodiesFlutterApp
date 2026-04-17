@@ -25,6 +25,7 @@ class HomeKidsScreen extends StatefulWidget {
 class _HomeKidsScreenState extends State<HomeKidsScreen> {
   final _svc  = FirebaseService();
   String _name = '';
+  String _myCode = '';
 
   @override
   void initState() {
@@ -44,10 +45,20 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
             av.gender == 'male' ? 0 : 1);
         await SessionManager.setHairColor(av.hairColor);
       }
-      if (mounted) setState(() => _name = user.name);
+      if (mounted) {
+        setState((){
+        _name = user.name;
+        _myCode = user.myCode;
+      });
+      }
     } catch (_) {
       final authUser = FirebaseAuth.instance.currentUser;
-      if (mounted) setState(() => _name = authUser?.email ?? 'Kid');
+      if (mounted) {
+        setState(() {
+        _name = authUser?.email ?? 'Kid';
+        _myCode = "";
+      });
+      }
     }
   }
 
@@ -80,10 +91,33 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              _name.isEmpty ? 'Hi there! 👋' : 'Hi, $_name! 👋',
-              style: const TextStyle(
-                  fontSize: 22, fontWeight: FontWeight.bold),
+            child: Row(
+              children: [
+                /// 👋 Name (flexible)
+                Expanded(
+                  child: Text(
+                    _name.isEmpty ? 'Hi there! 👋' : 'Hi, $_name! 👋',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(width: 10),
+
+                /// 🔐 Code (always visible)
+                Text(
+                  _myCode,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 4),
@@ -92,6 +126,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
             child: Text('What would you like to do today?',
                 style: TextStyle(color: Colors.grey)),
           ),
+          const SizedBox(height: 4),
           const SizedBox(height: 16),
           HomeMenuTile(
               label: 'Daily Check In — How do you feel?',

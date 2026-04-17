@@ -1,6 +1,7 @@
 // lib/screens/code_for_kids_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:moodiesapp/screens/login_screen.dart';
 import '../services/firebase_service.dart';
 import '../utils/session_manager.dart';
 import '../widgets/common_widgets.dart';
@@ -42,6 +43,14 @@ class _CodeForKidsScreenState extends State<CodeForKidsScreen> {
     } finally {
       if (mounted) setState(() => _loading = false);
     }
+  }
+
+  Future<void> _logout() async {
+    await _svc.logout();
+    if (!mounted) return;
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
+            (_) => false);
   }
 
   void _go(Widget s) => Navigator.of(context).pushAndRemoveUntil(
@@ -101,6 +110,8 @@ class _CodeForKidsScreenState extends State<CodeForKidsScreen> {
             _loading
                 ? const Center(child: CircularProgressIndicator(color: kAppBg))
                 : AppButton(label: 'Connect', onTap: _submit),
+            const SizedBox(height: 30),
+            AppButton(label: 'Logout', onTap: _logout)
           ],
         ),
       ),

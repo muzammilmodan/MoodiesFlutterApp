@@ -20,7 +20,15 @@ class FirebaseService {
   final FirebaseFirestore _db   = FirebaseFirestore.instance;
 
   // ── helpers ───────────────────────────────────────────────────────────────
-  String get _uid => _auth.currentUser?.uid ?? '';
+  //String get _uid => _auth.currentUser?.uid ?? '';
+
+  String get _uid {
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw Exception("User not authenticated");
+    }
+    return user.uid;
+  }
 
   DocumentReference get _userDoc =>
       _db.collection(AppConstants.colUsers).doc(_uid);
@@ -61,6 +69,10 @@ class FirebaseService {
   }) async {
     final cred = await _auth.createUserWithEmailAndPassword(
         email: email.trim(), password: password);
+
+    await cred.user!.reload();
+    await Future.delayed(const Duration(milliseconds: 300));
+
     final uid     = cred.user!.uid;
     final isChild = role == AppConstants.roleKids
         ? AppConstants.isChildKids
@@ -73,7 +85,7 @@ class FirebaseService {
       email:       email.trim(),
       role:        role,
       isChild:     isChild,
-      code:        code,
+      myCode:        code,
       parentEmail: parentEmail.trim(),
     );
 

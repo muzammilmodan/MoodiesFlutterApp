@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _navigate() async {
     await Future.delayed(
-        Duration(milliseconds: AppConstants.splashTimeout));
+        const Duration(milliseconds: AppConstants.splashTimeout));
     if (!mounted) return;
 
     // Firebase Auth persists login across app restarts automatically
@@ -60,39 +60,49 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/moodies_splash.jpg'),
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          /// 🔥 Full screen background image
+          SizedBox.expand(
+            child: Image.asset(
+              'assets/images/moodies_splash.jpg',
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Container(
-          color: Colors.black.withOpacity(0.35),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              Text(
-                'Moodies',
-                style: TextStyle(
-                  fontFamily: 'ChocoCooky',
-                  fontSize: 48,
-                  color: Colors.white,
-                  shadows: [Shadow(blurRadius: 12, color: Colors.black54)],
+
+          /// 🔥 Optional dark overlay for better text visibility
+          // Container(
+          //   color: Colors.black.withOpacity(0.3),
+          // ),
+
+          /// 🔥 Bottom content
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                color: Colors.black12,
+                child: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 24),
+                    Text(
+                      'Kids Mood Tracker',
+                      style: TextStyle(
+                        color: Color(0xFFAB47BC),
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 24),
+                    CircularProgressIndicator(color: Color(0xFFAB47BC)),
+                    SizedBox(height: 24),
+                  ],
                 ),
               ),
-              const SizedBox(height: 12),
-              const Text(
-                'Kids Mood Tracker',
-                style: TextStyle(color: Colors.white70, fontSize: 16),
-              ),
-              const Spacer(),
-              const CircularProgressIndicator(color: Colors.white),
-              const SizedBox(height: 40),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
