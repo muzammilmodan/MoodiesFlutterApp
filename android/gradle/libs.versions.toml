@@ -1,0 +1,50 @@
+[versions]
+agp = "8.11.0"
+kotlin = "2.0.21"
+ahbottomnavigation = "2.2.0"
+analytics = "latest.integration"
+commonsLang3 = "3.20.0"
+coreKtx = "1.18.0"
+httpcore = "4.4.16"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.7.1"
+libraryVersion = "2.4"
+material = "1.13.0"
+constraintlayout = "2.2.1"
+navigationFragmentKtx = "2.6.0"
+navigationUiKtx = "2.6.0"
+swiperefreshlayout = "1.2.0"
+gson = "2.12.1"
+universal-image-loader = "1.9.5"
+recyclerview-animators = "4.0.2"
+photoview = "2.3.0"
+coreKtxVersion = "1.18.0"
+
+[libraries]
+ahbottomnavigation = { module = "com.aurelhubert:ahbottomnavigation", version.ref = "ahbottomnavigation" }
+analytics = { module = "com.umeng.analytics:analytics", version.ref = "analytics" }
+androidanimations-library = { module = "com.daimajia.androidanimations:library", version.ref = "libraryVersion" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commonsLang3" }
+httpcore = { module = "org.apache.httpcomponents:httpcore", version.ref = "httpcore" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+universal-image-loader = { group = "com.nostra13.universalimageloader", name = "universal-image-loader", version.ref = "universal-image-loader" }
+recyclerview-animators = { group = "jp.wasabeef", name = "recyclerview-animators", version.ref = "recyclerview-animators" }
+photoview = { group = "com.github.chrisbanes", name = "PhotoView", version.ref = "photoview" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version = "2.0.21" }
+

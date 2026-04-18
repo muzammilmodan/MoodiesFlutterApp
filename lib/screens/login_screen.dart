@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import '../services/firebase_service.dart';
 import '../utils/app_constants.dart';
 import '../utils/session_manager.dart';
@@ -19,11 +20,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _svc         = FirebaseService();
-  final _emailCtrl   = TextEditingController();
-  final _pwCtrl      = TextEditingController();
-  String _role       = '';
-  bool   _loading    = false;
+  final _svc = FirebaseService();
+  final _emailCtrl = TextEditingController();
+  final _pwCtrl = TextEditingController();
+  String _role = '';
+  bool _loading = false;
 
   @override
   void dispose() {
@@ -35,13 +36,16 @@ class _LoginScreenState extends State<LoginScreen> {
   // ── validation ─────────────────────────────────────────────────────────
   bool _validate() {
     if (_emailCtrl.text.trim().isEmpty) {
-      _snack('Please enter your email address'); return false;
+      _snack('Please enter your email address');
+      return false;
     }
     if (!isValidEmail(_emailCtrl.text.trim())) {
-      _snack('Please enter a valid email'); return false;
+      _snack('Please enter a valid email');
+      return false;
     }
     if (_pwCtrl.text.isEmpty) {
-      _snack('Please enter your password'); return false;
+      _snack('Please enter your password');
+      return false;
     }
     return true;
   }
@@ -85,7 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
             onPressed: () async {
               final email = ctrl.text.trim();
               if (email.isEmpty || !isValidEmail(email)) {
-                _snack('Please enter a valid email'); return;
+                _snack('Please enter a valid email');
+                return;
               }
               Navigator.pop(ctx);
               try {
@@ -107,19 +112,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   // ── helpers ─────────────────────────────────────────────────────────────
-  void _go(Widget s) => Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => s), (_) => false);
+  void _go(Widget s) => Navigator.of(context)
+      .pushAndRemoveUntil(MaterialPageRoute(builder: (_) => s), (_) => false);
 
   void _snack(String msg) => showSnack(context, msg);
 
   String _authError(String code) => switch (code) {
-    'user-not-found'     => 'No account found with this email.',
-    'wrong-password'     => 'Incorrect password.',
-    'invalid-credential' => 'Invalid email or password.',
-    'too-many-requests'  => 'Too many attempts. Try again later.',
-    'user-disabled'      => 'This account has been disabled.',
-    _                    => 'Login failed. Please try again.',
-  };
+        'user-not-found' => 'No account found with this email.',
+        'wrong-password' => 'Incorrect password.',
+        'invalid-credential' => 'Invalid email or password.',
+        'too-many-requests' => 'Too many attempts. Try again later.',
+        'user-disabled' => 'This account has been disabled.',
+        _ => 'Login failed. Please try again.',
+      };
 
   // ── UI ───────────────────────────────────────────────────────────────────
   @override
@@ -133,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const SizedBox(height: 20),
               // Logo
-              Center(
+              const Center(
                 child: Text(
                   'Moodies',
                   style: TextStyle(
@@ -161,7 +166,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     isSelected: _role == AppConstants.roleParent,
                     onTap: () async {
                       setState(() => _role = AppConstants.roleParent);
-                      await SessionManager.setSelectRole(AppConstants.roleParent);
+                      await SessionManager.setSelectRole(
+                          AppConstants.roleParent);
                     },
                   ),
                   const SizedBox(width: 12),
@@ -213,7 +219,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const Text("Don't have an account? "),
                   GestureDetector(
-                    onTap: () => Navigator.pushReplacement(context,
+                    onTap: () => Navigator.pushReplacement(
+                        context,
                         MaterialPageRoute(
                             builder: (_) => const SignUpScreen())),
                     child: const Text('Sign Up',
@@ -222,6 +229,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
+
+              const SizedBox(height: 28),
+              // ElevatedButton(
+              //   onPressed: openNativeScreen,
+              //   child: const Text("Open Native Screen"),
+              // )
             ],
           ),
         ),

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlidingUpPanelLayout">
+        <attr name="panelHeight" format="dimension" />
+        <attr name="shadowHeight" format="dimension" />
+        <attr name="parallaxOffset" format="dimension" />
+        <attr name="fadeColor" format="color" />
+        <attr name="flingVelocity" format="integer" />
+        <attr name="dragView" format="reference" />
+        <attr name="overlay" format="boolean" />
+        <attr name="clipPanel" format="boolean" />
+        <attr name="anchorPoint" format="float" />
+        <attr name="initialState" format="enum">
+            <enum name="expanded" value="0" />
+            <enum name="collapsed" value="1" />
+            <enum name="anchored" value="2" />
+            <enum name="hidden" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="PlayPause">
+        <attr name="isCircleDraw" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomCalendarView">
+        <attr name="calendarTitleTextColor" format="color" />
+        <attr name="dayOfWeekTextColor" format="color" />
+        <attr name="dayOfMonthTextColor" format="color" />
+        <attr name="calendarBackgroundColor" format="color" />
+        <attr name="disabledDayBackgroundColor" format="color" />
+        <attr name="disabledDayTextColor" format="color" />
+        <attr name="selectedDayBackgroundColor" format="color" />
+        <attr name="selectedDayTextColor" format="color" />
+        <attr name="weekLayoutBackgroundColor" format="color" />
+        <attr name="titleLayoutBackgroundColor" format="color" />
+        <attr name="currentDayOfMonthColor" format="color" />
+    </declare-styleable>
+</resources>

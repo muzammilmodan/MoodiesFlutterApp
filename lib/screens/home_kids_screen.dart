@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/firebase_service.dart';
 import '../utils/session_manager.dart';
 import '../widgets/common_widgets.dart';
+import 'image_colors/open_color_screen.dart';
 import 'login_screen.dart';
 import 'feeling_today_screen.dart';
 import 'planner_list_screen.dart';
@@ -23,7 +24,7 @@ class HomeKidsScreen extends StatefulWidget {
 }
 
 class _HomeKidsScreenState extends State<HomeKidsScreen> {
-  final _svc  = FirebaseService();
+  final _svc = FirebaseService();
   String _name = '';
   String _myCode = '';
 
@@ -41,23 +42,22 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
       if (av != null) {
         await SessionManager.setUserGender(av.gender);
         await SessionManager.setUserHairColor(av.hairColor);
-        await SessionManager.setIsGender(
-            av.gender == 'male' ? 0 : 1);
+        await SessionManager.setIsGender(av.gender == 'male' ? 0 : 1);
         await SessionManager.setHairColor(av.hairColor);
       }
       if (mounted) {
-        setState((){
-        _name = user.name;
-        _myCode = user.myCode;
-      });
+        setState(() {
+          _name = user.name;
+          _myCode = user.myCode;
+        });
       }
     } catch (_) {
       final authUser = FirebaseAuth.instance.currentUser;
       if (mounted) {
         setState(() {
-        _name = authUser?.email ?? 'Kid';
-        _myCode = "";
-      });
+          _name = authUser?.email ?? 'Kid';
+          _myCode = "";
+        });
       }
     }
   }
@@ -66,8 +66,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
     await _svc.logout();
     if (!mounted) return;
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
-        (_) => false);
+        MaterialPageRoute(builder: (_) => const LoginScreen()), (_) => false);
   }
 
   void _nav(Widget s) =>
@@ -126,7 +125,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
             child: Text('What would you like to do today?',
                 style: TextStyle(color: Colors.grey)),
           ),
-          const SizedBox(height: 4),
+
           const SizedBox(height: 16),
           HomeMenuTile(
               label: 'Daily Check In — How do you feel?',
@@ -136,6 +135,12 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
               label: 'Color Pages',
               icon: Icons.palette,
               onTap: () => _nav(const ColorPagesScreen())),
+          HomeMenuTile(
+              label: 'Art Color Pages',
+              icon: Icons.art_track,
+              onTap: () {
+                OpenColorScreen.openNativeScreen();
+              }),
           HomeMenuTile(
               label: 'Chill Music',
               icon: Icons.music_note,

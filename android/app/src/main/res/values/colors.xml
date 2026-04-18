@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF00bcd4</color>
+    <color name="colorPrimaryDark">#FF0097a7</color>
+    <color name="colorAccent">#FF00bcd4</color>
+
+
+    <!--App related-->
+    <color name="color_pg_bg">#FF0097a7</color>
+    <color name="music_bg">#F2C44E</color>
+    <color name="check_in_bg">#3E4517</color>
+    <color name="planner_bg">#FF00bcd4</color>
+    <color name="awards_bg">#646A23</color>
+    <color name="new_character_bg">#FF0097a7</color>
+    <color name="pazzel_bg">#F2C44E</color>
+    <color name="print_bg">#3E4517</color>
+    <color name="signout_bg">#FF00bcd4</color>
+
+    <color name="off_white">#f1f5f7</color>
+    <color name="blue_selector">#00aeea</color>
+    <color name="red_negative_progress">#ff3333</color>
+
+    <color name="bg_color">#e3ebee</color>
+    <color name="color_grey">#2a2d30</color>
+
+    <color name="background">#E0E0E0</color>
+    <color name="grey">#757575</color>
+
+
+    <color name="day_disabled_background_color">#F1F5F8</color>
+    <color name="day_disabled_text_color">#DEDEDE</color>
+    <color name="selected_day_background">#03A7E9</color>
+    <color name="current_day_of_month">#03A7E9</color>
+
+    <color name="warning_bg">#000000</color>
+    <color name="error_bg">#FF0000</color>
+    <color name="success_bg">#5AC84B</color>
+
+    <color name="app_bg">#FF00bcd4</color>
+    <color name="app_bg_trans">#FF0097a7</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="bg_transparand">#80FFFFFF</color>
+    <color name="txt_hint">#666666</color>
+    <color name="transparent">#80FFFFFF</color>
+    <color name="home_bg">#26000000</color>
+
+    <color name="app_bg_sado">#A6df4625</color>
+
+    <!--App color-->
+    <color name="sign_in_btn">#61ADE0</color>
+    <color name="top_screen_bg">#242424</color>
+    <color name="login_btn">#486496</color>
+    <color name="post_bg">#97000000</color>
+    <color name="place_bg">#97000000</color>
+
+    <color name="blue">#034dea</color>
+
+    <color name="slider_bg">#395797</color>
+    <color name="black">#000000</color>
+
+    <color name="progress_color">#ffffff</color>
+    <color name="red">#F63D2B</color>
+    <color name="lime">#3AB632</color>
+    <color name="group_divider_color">#80CBC4</color>
+    <color name="pink">#F48FB1</color>
+    <color name="gray">#cdcdcd</color>
+
+    <color name="text_color">#FFFFFF</color>
+    <color name="divider_color">#11000000</color>
+    <color name="msg_color">#FFFFFFFF</color>
+    <color name="dialog_bg">#ffe74c3c</color>
+
+    <color name="header_bg">#26000000</color>
+    <color name="tab_bg">#1A5675</color>
+    <color name="tab_bg_view">#3F4040</color>
+
+    <color name="colorMainBackground">#E0F2F1</color>
+    <color name="view_bg">#dddddd</color>
+
+    <color name="colorAccent_trans">#6c605d5d</color>
+
+    <color name="pageviewer">#31facb</color>
+
+    <color name="white_bg">#1d605d5d</color>
+
+    <color name="colorPrimaryPix">#303F9F</color>
+    <color name="colorPrimaryLightPix">#3F51B5</color>
+
+    <color name="colorRouteLine">#0A8F08</color>
+    <color name="viewbg">#E0E0E0</color>
+
+
+
+</resources>

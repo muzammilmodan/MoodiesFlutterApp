@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@color/lightgray">
+
+
+    <RelativeLayout
+            android:background="@color/app_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80sdp"
+        android:elevation="8dp">
+
+
+        <!-- ✅ White back arrow icon -->
+        <ImageView
+            android:id="@+id/ivBackPaint"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="false"
+            android:padding="4dp"
+            android:src="@drawable/ic_back_white"
+            android:tint="@android:color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back" />
+
+        <!-- ✅ Centered white title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="Moodies"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+
+
+        <com.google.android.material.tabs.TabLayout
+             android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            app:tabTextColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabRippleColor="@android:color/white"/>
+    </RelativeLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+            android:layout_marginTop="@dimen/_80sdp"
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
