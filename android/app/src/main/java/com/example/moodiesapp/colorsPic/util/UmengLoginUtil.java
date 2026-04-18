@@ -1,6 +1,5 @@
 package com.example.moodiesapp.colorsPic.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,7 +11,7 @@ import com.example.moodiesapp.R;
 import com.example.moodiesapp.colorsPic.MyApplication;
 import com.example.moodiesapp.colorsPic.broadcast.LoginSuccessBroadcast;
 import com.example.moodiesapp.colorsPic.broadcast.LogoutSuccessBroadcast;
-import com.example.moodiesapp.colorsPic.controller.main.UserFragment;
+import com.example.moodiesapp.colorsPic.fragments.UserFragment;
 import com.example.moodiesapp.colorsPic.factory.MyDialogFactory;
 import com.example.moodiesapp.colorsPic.factory.SharedPreferencesFactory;
 import com.example.moodiesapp.colorsPic.listener.OnLoginSuccessListener;
@@ -26,7 +25,6 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Swifty.Wang on 2015/9/10.

@@ -160,69 +160,9 @@ public class MainColorPicActivity extends AppCompatBaseAcitivity {
     }
 
 
-    /*  @Override
-      public boolean onCreateOptionsMenu(Menu menu) {
-          // Inflate the menu; this adds items to the action bar if it is present.
-          getMenuInflater().inflate(R.menu.menu_main, menu);
-        *//*  // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView;
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setQueryHint(getString(R.string.action_search));
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(0);
-            }
-        });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                ThemeListFragment.getInstance().filterData(newText);
-                return true;
-            }
-        });
-        logout = menu.findItem(R.id.action_logout);*//*
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        *//*if (id == R.id.action_share) {
-            SNSUtil.shareApp(this);
-        } else if (id == R.id.action_comment) {
-            CommentUtil.commentApp(this);
-        } else if (id == R.id.about) {
-            myDialogFactory.showAboutDialog();
-        } else if (id == R.id.action_setting) {
-            myDialogFactory.showSettingDialog();
-        } else if (id == R.id.action_logout) {
-            UmengLoginUtil.getInstance().logout(this);
-        }*//*
-        return super.onOptionsItemSelected(item);
-    }
-*/
     @Override
     public void onBackPressed() {
         finish();
-//        Intent intent = new Intent(MainColorPicActivity.this, MainActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//
     }
 
     @Override

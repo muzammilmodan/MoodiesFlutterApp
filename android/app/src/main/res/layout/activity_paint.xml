@@ -241,6 +241,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitEnd" />
     </FrameLayout>
+
     <include
         android:id="@+id/colorpicklay"
         layout="@layout/view_colorpicker"
@@ -248,6 +249,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/topfirstlay" />
+
     <include
         android:id="@+id/largepickerlay"
         layout="@layout/view_large_colorpick"

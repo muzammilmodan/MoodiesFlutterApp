@@ -1,4 +1,4 @@
-package com.example.moodiesapp.colorsPic.controller.main;
+package com.example.moodiesapp.colorsPic.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.moodiesapp.R;
 import com.example.moodiesapp.colorsPic.controller.BaseFragment;
+import com.example.moodiesapp.colorsPic.controller.main.CacheImageAdapter;
+import com.example.moodiesapp.colorsPic.controller.main.LocalPaintAdapter;
 import com.example.moodiesapp.colorsPic.factory.MyDialogFactory;
 import com.example.moodiesapp.colorsPic.listener.OnLoadCacheImageListener;
 import com.example.moodiesapp.colorsPic.listener.OnLoadUserPaintListener;
@@ -118,7 +120,9 @@ public class UserFragment extends BaseFragment implements OnLoginSuccessListener
                     L.e("load");
                     if (usertabs.getCheckedRadioButtonId() == R.id.tab_local) {
                         //change vertical recycleview to listview
-                        userpaintlist.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        userpaintlist.setLayoutManager(
+                                new androidx.recyclerview.widget.GridLayoutManager(getActivity(), 2)
+                        );
                         //clear recycleview
                         userpaintlist.setAdapter(new LocalPaintAdapter(getActivity(), localImageBeans));
                         OnLoadUserPaintListener onLoadUserPaintListener = new OnLoadUserPaintListener() {
@@ -220,7 +224,11 @@ public class UserFragment extends BaseFragment implements OnLoginSuccessListener
     private void loadLocalPaints() {
         try {
             //change vertical recycleview to listview
-            userpaintlist.setLayoutManager(new LinearLayoutManager(getActivity()));
+            //userpaintlist.setLayoutManager(new LinearLayoutManager(getActivity()));
+            userpaintlist.setLayoutManager(
+                    new androidx.recyclerview.widget.GridLayoutManager(getActivity(), 2)
+            );
+
             //clear recycleview
             userpaintlist.setAdapter(new LocalPaintAdapter(getActivity(), localImageBeans));
             //load local paints

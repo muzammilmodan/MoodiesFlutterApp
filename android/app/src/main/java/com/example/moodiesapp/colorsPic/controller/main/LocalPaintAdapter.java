@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,18 +46,34 @@ public class LocalPaintAdapter extends RecyclerView.Adapter<LocalPaintAdapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        AsynImageLoader.showImageAsynWithoutCache(holder.image, "file://" + localImageListBean.get(position).getImageUrl());
-        holder.image.setLayoutParams(new LinearLayout.LayoutParams(MyApplication.getScreenWidth(context) / 5 * 3, (int) (MyApplication.getScreenWidth(context) / 5 * 3 / localImageListBean.get(position).getWvHRadio())));
+        // For 2-column grid: width = half screen width minus some padding
+        int screenWidth = MyApplication.getScreenWidth(context);
+        int width = screenWidth / 2 - 16; // 16 = padding between columns
+        int height = (int) (width / localImageListBean.get(position).getWvHRadio());
+        holder.image.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+
+        AsynImageLoader.showImageAsynWithoutCache(holder.image,
+                "file://" + localImageListBean.get(position).getImageUrl());
+
+//        holder.image.setLayoutParams(new LinearLayout.LayoutParams(
+//                MyApplication.getScreenWidth(context) / 5 * 3, (int)
+//                (MyApplication.getScreenWidth(context) / 5 * 3 /
+//                        localImageListBean.get(position).getWvHRadio())));
+//
+//
+
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoPaintActivity("file://" + localImageListBean.get(position).getImageUrl(), localImageListBean.get(position).getImageName());
+                gotoPaintActivity("file://" + localImageListBean.get(position).getImageUrl(),
+                        localImageListBean.get(position).getImageName());
             }
         });
         holder.lastModifyTime.setText(context.getString(R.string.lastModifty) + " " + localImageListBean.get(position).getLastModDate());
     }
 
     private void gotoPaintActivity(String uri, String filename) {
+        Toast.makeText(context, "Local paint call", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(context, PaintActivity.class);
         intent.putExtra(MyApplication.BIGPICFROMUSER, uri);
 

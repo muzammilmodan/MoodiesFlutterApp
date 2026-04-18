@@ -1,4 +1,4 @@
-package com.example.moodiesapp.colorsPic.controller.main;
+package com.example.moodiesapp.colorsPic.fragments;
 
 import android.content.Intent;
 import android.os.Build;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.moodiesapp.colorsPic.controller.main.ThemeListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.moodiesapp.R;
 import com.example.moodiesapp.colorsPic.MyApplication;

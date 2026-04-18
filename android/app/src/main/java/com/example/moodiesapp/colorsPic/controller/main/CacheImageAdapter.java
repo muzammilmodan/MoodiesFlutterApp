@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,6 +80,7 @@ public class CacheImageAdapter extends RecyclerView.Adapter<CacheImageAdapter.Vi
 
     private void gotoPaintActivity(String s) {
         UmengUtil.analysitic(context, UmengUtil.MODELNUMBER, s);
+        Toast.makeText(context, "Cached image call", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(context, PaintActivity.class);
         intent.putExtra(MyApplication.BIGPIC, s);
         context.startActivity(intent);

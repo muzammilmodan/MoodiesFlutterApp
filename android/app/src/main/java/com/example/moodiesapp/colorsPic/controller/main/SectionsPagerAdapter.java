@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.example.moodiesapp.colorsPic.fragments.ThemeListFragment;
+import com.example.moodiesapp.colorsPic.fragments.UserFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 

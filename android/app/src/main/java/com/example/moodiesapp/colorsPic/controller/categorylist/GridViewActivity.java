@@ -172,13 +172,18 @@ public class GridViewActivity extends BaseActivity {
 
     private void gotoPaintActivity(String s) {
         try {
-            UmengUtil.analysitic(this, UmengUtil.MODELNUMBER, getIntent().getStringExtra(MyApplication.THEMENAME) + categoryId);
+            Toast.makeText(this, "Grid View call", Toast.LENGTH_SHORT).show();
+
+            UmengUtil.analysitic(this, UmengUtil.MODELNUMBER,
+                    getIntent().getStringExtra(MyApplication.THEMENAME) + categoryId);
             Intent intent = new Intent(this, PaintActivity.class);
-            if (s.contains(MyApplication.MainUrl)) {
-                intent.putExtra(MyApplication.BIGPIC, s);
-            } else {
-                intent.putExtra(MyApplication.BIGPIC, MyApplication.SECRETGARDENLOCATION + s);
-            }
+            intent.putExtra(MyApplication.BIGPIC, MyApplication.SECRETGARDENLOCATION + s);
+
+//            if (s.contains(MyApplication.MainUrl)) {
+//                intent.putExtra(MyApplication.BIGPIC, s);
+//            } else {
+//                intent.putExtra(MyApplication.BIGPIC, MyApplication.SECRETGARDENLOCATION + s);
+//            }
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();

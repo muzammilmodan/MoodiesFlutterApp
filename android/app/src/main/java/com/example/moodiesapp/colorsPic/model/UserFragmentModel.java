@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.moodiesapp.colorsPic.controller.main.UserFragment;
+import com.example.moodiesapp.colorsPic.fragments.UserFragment;
 import com.example.moodiesapp.colorsPic.controller.paint.myfileutils.FileUtils;
 import com.example.moodiesapp.colorsPic.listener.OnLoadCacheImageListener;
 import com.example.moodiesapp.colorsPic.listener.OnLoadUserPaintListener;
@@ -62,8 +62,21 @@ public class UserFragmentModel {
                 result = new ArrayList<>();
             }
 
-            Log.e("","local images found: " + result.size());
-            return result;
+            // ✅ Filter out files that no longer exist on disk
+            List<LocalImageBean> existingFiles = new ArrayList<>();
+            for (LocalImageBean bean : result) {
+                if (bean != null && bean.getImageUrl() != null) {
+                    java.io.File file = new java.io.File(bean.getImageUrl());
+                    if (file.exists()) {
+                        existingFiles.add(bean);
+                    } else {
+                        Log.e("UserFragmentModel", "File not found, skipping: " + bean.getImageUrl());
+                    }
+                }
+            }
+
+            Log.e("", "local images found: " + existingFiles.size());
+            return existingFiles;
         }
 
         @Override
