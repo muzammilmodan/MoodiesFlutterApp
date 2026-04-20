@@ -168,6 +168,43 @@ class AppTextField extends StatelessWidget {
       );
 }
 
+// ── Standard text field ────────────────────────────────────────────────────
+class AppTextWithCalenderField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hint;
+  final TextInputType keyboardType;
+  final int maxLines;
+  final VoidCallback? onTap;          // ✅ add this
+  final bool readOnly;
+
+  const AppTextWithCalenderField({
+    super.key,
+    required this.controller,
+    required this.hint,
+    this.keyboardType = TextInputType.text,
+    this.maxLines = 1,
+    this.onTap,                       // ✅ add this
+    this.readOnly = false,            // ✅ add this
+  });
+
+  @override
+  Widget build(BuildContext context) => TextField(
+    controller: controller,
+    keyboardType: keyboardType,
+    maxLines: maxLines,
+    readOnly: readOnly,           // ✅ prevents keyboard from opening
+    onTap: onTap,
+    decoration: InputDecoration(
+      hintText: hint,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+      contentPadding:
+      const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      suffixIcon: const Icon(Icons.calendar_today),
+    ),
+  );
+}
+
+
 // ── Home menu tile ─────────────────────────────────────────────────────────
 class HomeMenuTile extends StatelessWidget {
   final String label;

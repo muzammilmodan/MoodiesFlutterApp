@@ -142,6 +142,7 @@ class _KidsMoodTrackerListScreenState
               children: [
                 if (_showForm) _buildForm(),
                 Expanded(child: _buildList()),
+                SizedBox(height: 10,)
               ],
             ),
     );
@@ -181,10 +182,13 @@ class _KidsMoodTrackerListScreenState
               ),
               if (widget.tab != 'Notes') ...[
                 const SizedBox(height: 12),
-                AppTextField(
+
+                AppTextWithCalenderField(
                   controller: _f2,
                   hint: 'Date & Time (e.g. 2024-12-01 10:00)',
                   keyboardType: TextInputType.datetime,
+                  readOnly: true,                     // ✅ no keyboard
+                  onTap: () => _pickDateTime(context),
                 ),
               ],
               const SizedBox(height: 16),
@@ -196,6 +200,45 @@ class _KidsMoodTrackerListScreenState
           ),
         ),
       );
+
+  Future<void> _pickDateTime(BuildContext context) async {
+    // Step 1 — Pick Date
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate == null) return; // user cancelled
+
+    // Step 2 — Pick Time
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (pickedTime == null) return; // user cancelled
+
+    // Step 3 — Combine and format
+    final DateTime combined = DateTime(
+      pickedDate.year,
+      pickedDate.month,
+      pickedDate.day,
+      pickedTime.hour,
+      pickedTime.minute,
+    );
+
+    // Format: 2024-12-01 10:00
+    final String formatted =
+        '${combined.year}-'
+        '${combined.month.toString().padLeft(2, '0')}-'
+        '${combined.day.toString().padLeft(2, '0')} '
+        '${combined.hour.toString().padLeft(2, '0')}:'
+        '${combined.minute.toString().padLeft(2, '0')}';
+
+    _f2.text = formatted;
+  }
 
   Widget _buildList() {
     switch (widget.tab) {

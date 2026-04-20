@@ -9,10 +9,6 @@ import 'widgets/common_widgets.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // Hide status bar + navigation bar
-  SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.immersiveSticky,
-  );
 
   runApp(const MoodiesApp());
 }
