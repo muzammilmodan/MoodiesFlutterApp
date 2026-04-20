@@ -1,7 +1,7 @@
 // lib/screens/chill_music_screen.dart
 
 import 'package:flutter/material.dart';
-import '../widgets/common_widgets.dart';
+import '../../widgets/common_widgets.dart';
 
 class ChillMusicScreen extends StatefulWidget {
   const ChillMusicScreen({super.key});

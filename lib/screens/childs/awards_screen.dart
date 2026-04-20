@@ -1,8 +1,8 @@
 // lib/screens/awards_screen.dart
 
 import 'package:flutter/material.dart';
-import '../services/firebase_service.dart';
-import '../widgets/common_widgets.dart';
+import '../../services/firebase_service.dart';
+import '../../widgets/common_widgets.dart';
 
 class AwardsScreen extends StatefulWidget {
   const AwardsScreen({super.key});

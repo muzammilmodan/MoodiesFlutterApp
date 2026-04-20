@@ -1,10 +1,10 @@
 // lib/screens/create_character_screen.dart
 
 import 'package:flutter/material.dart';
-import '../services/firebase_service.dart';
-import '../utils/app_constants.dart';
-import '../utils/session_manager.dart';
-import '../widgets/common_widgets.dart';
+import '../../services/firebase_service.dart';
+import '../../utils/app_constants.dart';
+import '../../utils/session_manager.dart';
+import '../../widgets/common_widgets.dart';
 import 'home_kids_screen.dart';
 
 enum _Step { gender, hair, skin }

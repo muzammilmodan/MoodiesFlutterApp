@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../services/firebase_service.dart';
-import '../widgets/common_widgets.dart';
-import 'login_screen.dart';
-import 'planner_list_screen.dart';
-import 'print_list_screen.dart';
-import 'parents_mood_list_screen.dart';
+import 'package:moodiesapp/screens/childs/parents_mood_list_screen.dart';
+import 'package:moodiesapp/screens/childs/planner_list_screen.dart';
+import '../../services/firebase_service.dart';
+import '../../widgets/common_widgets.dart';
+import '../login_screen.dart';
+import '../print_list_screen.dart';
+
 
 class HomeParentScreen extends StatefulWidget {
   const HomeParentScreen({super.key});

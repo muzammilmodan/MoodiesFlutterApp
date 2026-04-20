@@ -7,9 +7,9 @@ import '../utils/app_constants.dart';
 import '../utils/session_manager.dart';
 import '../widgets/common_widgets.dart';
 import 'login_screen.dart';
-import 'home_parent_screen.dart';
-import 'home_kids_screen.dart';
-import 'code_for_kids_screen.dart';
+import 'parent/home_parent_screen.dart';
+import 'childs/home_kids_screen.dart';
+import 'parent/code_for_kids_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

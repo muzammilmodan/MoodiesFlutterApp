@@ -1,7 +1,7 @@
 // lib/screens/color_pages_screen.dart
 
 import 'package:flutter/material.dart';
-import '../widgets/common_widgets.dart';
+import '../../widgets/common_widgets.dart';
 
 class ColorPagesScreen extends StatefulWidget {
   const ColorPagesScreen({super.key});

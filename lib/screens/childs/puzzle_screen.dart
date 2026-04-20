@@ -2,7 +2,7 @@
 
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../widgets/common_widgets.dart';
+import '../../widgets/common_widgets.dart';
 
 class PuzzleScreen extends StatefulWidget {
   const PuzzleScreen({super.key});

@@ -7,9 +7,9 @@ import '../utils/app_constants.dart';
 import '../utils/session_manager.dart';
 import '../widgets/common_widgets.dart';
 import 'login_screen.dart';
-import 'home_kids_screen.dart';
-import 'create_character_screen.dart';
-import 'code_for_kids_screen.dart';
+import 'childs/home_kids_screen.dart';
+import 'childs/create_character_screen.dart';
+import 'parent/code_for_kids_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

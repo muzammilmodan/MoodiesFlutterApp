@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:moodiesapp/screens/login_screen.dart';
-import '../services/firebase_service.dart';
-import '../utils/session_manager.dart';
-import '../widgets/common_widgets.dart';
+import '../../services/firebase_service.dart';
+import '../../utils/session_manager.dart';
+import '../../widgets/common_widgets.dart';
 import 'home_parent_screen.dart';
 
 class CodeForKidsScreen extends StatefulWidget {

@@ -2,18 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../services/firebase_service.dart';
-import '../utils/session_manager.dart';
-import '../widgets/common_widgets.dart';
-import 'image_colors/open_color_screen.dart';
-import 'login_screen.dart';
+import 'package:moodiesapp/screens/childs/chill_music_screen.dart';
+import 'package:moodiesapp/screens/childs/planner_list_screen.dart';
+import '../../services/firebase_service.dart';
+import '../../utils/session_manager.dart';
+import '../../widgets/common_widgets.dart';
+import '../image_colors/open_color_screen.dart';
+import '../login_screen.dart';
 import 'feeling_today_screen.dart';
-import 'planner_list_screen.dart';
-import 'print_list_screen.dart';
+
+import '../print_list_screen.dart';
 import 'create_character_screen.dart';
 import 'puzzle_screen.dart';
 import 'color_pages_screen.dart';
-import 'chill_music_screen.dart';
 import 'awards_screen.dart';
 
 class HomeKidsScreen extends StatefulWidget {
