@@ -7,7 +7,10 @@ import '../../widgets/common_widgets.dart';
 
 class ParentsKidsMoodTrackerListScreen extends StatefulWidget {
   final String tab; // 'Tracker' | 'Therapy' | 'Reminder' | 'Notes'
-  const ParentsKidsMoodTrackerListScreen({super.key, required this.tab});
+  final DateTime selectDate;
+
+  const ParentsKidsMoodTrackerListScreen({super.key, required this.tab,
+    required this.selectDate});
 
   @override
   State<ParentsKidsMoodTrackerListScreen> createState() =>

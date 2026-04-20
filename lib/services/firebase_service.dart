@@ -50,10 +50,10 @@ class FirebaseService {
   Future<UserModel> login(String email, String password) async {
     final cred = await _auth.signInWithEmailAndPassword(
         email: email.trim(), password: password);
-    final uid = cred.user!.uid;
+    final uid = cred.user?.uid;
     final snap = await _db.collection(AppConstants.colUsers).doc(uid).get();
     if (!snap.exists) throw Exception('User profile not found');
-    final user = UserModel.fromMap(uid, snap.data()!);
+    final user = UserModel.fromMap(uid ?? "", snap.data()!);
     // cache role locally
     await SessionManager.setSelectRole(user.role);
     return user;
@@ -272,6 +272,29 @@ class FirebaseService {
     return snap.docs.map((d) => MoodModel.fromDoc(d)).toList();
   }
 
+  Future<List<MoodModel>> getChildMoodsByDate(
+      String childUid,
+      DateTime selectedDate) async {
+    final start = DateTime(
+      selectedDate.year,
+      selectedDate.month,
+      selectedDate.day,
+    );
+
+    final end = start.add(const Duration(days: 1));
+
+    final snap = await _db
+        .collection(AppConstants.colUsers)
+        .doc(childUid)
+        .collection(AppConstants.colMoods)
+        .where('created_at', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
+        .where('created_at', isLessThan: Timestamp.fromDate(end))
+        .orderBy('created_at', descending: true)
+        .get();
+
+    return snap.docs.map((d) => MoodModel.fromDoc(d)).toList();
+  }
+
   /// Get Therapy Sessions of a specific child by uid
   Future<List<TherapyModel>> getChildTherapySessions(String childUid) async {
     final snap = await _db
@@ -280,6 +303,29 @@ class FirebaseService {
         .collection(AppConstants.colTherapy)
         .orderBy('created_at', descending: true)
         .get();
+    return snap.docs.map((d) => TherapyModel.fromDoc(d)).toList();
+  }
+
+  Future<List<TherapyModel>> getChildTherapySessionsByDate(
+      String childUid,
+      DateTime selectedDate) async {
+    final start = DateTime(
+      selectedDate.year,
+      selectedDate.month,
+      selectedDate.day,
+    );
+
+    final end = start.add(const Duration(days: 1));
+
+    final snap = await _db
+        .collection(AppConstants.colUsers)
+        .doc(childUid)
+        .collection(AppConstants.colTherapy)
+        .where('created_at', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
+        .where('created_at', isLessThan: Timestamp.fromDate(end))
+        .orderBy('created_at', descending: true)
+        .get();
+
     return snap.docs.map((d) => TherapyModel.fromDoc(d)).toList();
   }
 
@@ -294,5 +340,65 @@ class FirebaseService {
     return snap.docs.map((d) => ReminderModel.fromDoc(d)).toList();
   }
 
+  Future<List<TherapyModel>> getChildRemindersByDate(
+      String childUid,
+      DateTime selectedDate) async {
+    final start = DateTime(
+      selectedDate.year,
+      selectedDate.month,
+      selectedDate.day,
+    );
 
+    final end = start.add(const Duration(days: 1));
+
+    final snap = await _db
+        .collection(AppConstants.colUsers)
+        .doc(childUid)
+        .collection(AppConstants.colReminders)
+        .where('created_at', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
+        .where('created_at', isLessThan: Timestamp.fromDate(end))
+        .orderBy('created_at', descending: true)
+        .get();
+
+    return snap.docs.map((d) => TherapyModel.fromDoc(d)).toList();
+  }
+
+
+  /// Add event — replaces POST /user/event/add
+  Future<void> addWeeklyPrintReview({
+    required String sunday,
+    required String monday,
+    required String tuesday,
+    required String wednesday,
+    required String thursday,
+    required String friday,
+    required String saturday,
+  }) async {
+    await _sub(AppConstants.colWeeklyPrint)
+        .doc('weekly_review')
+        .set(
+      WeeklyPrintReviewModel(
+        id: 'weekly_review',
+        sunday: sunday,
+        monday: monday,
+        tuesday: tuesday,
+        wednesday: wednesday,
+        thursday: thursday,
+        friday: friday,
+        saturday: saturday,
+      ).toMap(),
+      SetOptions(merge: true),
+    );
+  }
+
+  /// Get all therapy sessions
+  Future<WeeklyPrintReviewModel?> getWeeklyPrintReview() async {
+    final doc = await _sub(AppConstants.colWeeklyPrint)
+        .doc('weekly_review')
+        .get();
+
+    if (!doc.exists) return null;
+
+    return WeeklyPrintReviewModel.fromDoc(doc);
+  }
 }

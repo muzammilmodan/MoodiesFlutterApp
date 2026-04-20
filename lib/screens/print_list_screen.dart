@@ -1,6 +1,8 @@
 // lib/screens/print_list_screen.dart
 
 import 'package:flutter/material.dart';
+import '../models/models.dart';
+import '../services/firebase_service.dart';
 import '../widgets/common_widgets.dart';
 
 class PrintListScreen extends StatefulWidget {
@@ -14,10 +16,14 @@ class _PrintListScreenState extends State<PrintListScreen> {
   final _days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   late final Map<String, TextEditingController> _ctrl;
 
+  final _svc = FirebaseService();
+
   @override
   void initState() {
     super.initState();
     _ctrl = {for (final d in _days) d: TextEditingController()};
+
+    _findWeeklyPrintReviewData();
   }
 
   @override
@@ -26,9 +32,50 @@ class _PrintListScreenState extends State<PrintListScreen> {
     super.dispose();
   }
 
-  void _submit() {
-    showSnack(context, 'Weekly review saved! 🖨️');
-    Navigator.pop(context);
+  WeeklyPrintReviewModel? _weeklyData;
+
+  Future<void> _findWeeklyPrintReviewData() async {
+    final data = await _svc.getWeeklyPrintReview();
+
+    if (data == null) return;
+
+    _weeklyData = data;
+
+    _ctrl['Sunday']!.text = data.sunday;
+    _ctrl['Monday']!.text = data.monday;
+    _ctrl['Tuesday']!.text = data.tuesday;
+    _ctrl['Wednesday']!.text = data.wednesday;
+    _ctrl['Thursday']!.text = data.thursday;
+    _ctrl['Friday']!.text = data.friday;
+    _ctrl['Saturday']!.text = data.saturday;
+
+    if (mounted) setState(() {});
+  }
+
+
+  Future<void> _addSubmitEvent() async {
+
+    LoadingDialog.show(context);
+    try {
+      await _svc.addWeeklyPrintReview(
+        sunday: _ctrl['Sunday']!.text.trim(),
+        monday: _ctrl['Monday']!.text.trim(),
+        tuesday: _ctrl['Tuesday']!.text.trim(),
+        wednesday: _ctrl['Wednesday']!.text.trim(),
+        thursday: _ctrl['Thursday']!.text.trim(),
+        friday: _ctrl['Friday']!.text.trim(),
+        saturday: _ctrl['Saturday']!.text.trim(),
+      );
+
+      if (!mounted) return;
+      LoadingDialog.hide(context);
+
+      showSnack(context, 'Weekly review saved! 🖨️');
+      Navigator.pop(context);
+
+    } catch (e) {
+      if (mounted) { LoadingDialog.hide(context); showSnack(context, 'Failed. Try again.'); }
+    }
   }
 
   @override
@@ -104,7 +151,7 @@ class _PrintListScreenState extends State<PrintListScreen> {
                 )),
 
             const SizedBox(height: 10),
-            AppButton(label: '🖨️  Save & Print', onTap: _submit),
+            AppButton(label: '🖨️  Save & Print', onTap: _addSubmitEvent),
           ],
         ),
       ),

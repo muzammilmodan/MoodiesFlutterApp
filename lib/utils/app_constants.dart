@@ -45,4 +45,5 @@ class AppConstants {
   static const String colEvents    = 'events';
   static const String colReminders = 'reminders';
   static const String colTherapy   = 'therapy';
+  static const String colWeeklyPrint   = 'weeklyprint';
 }

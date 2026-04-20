@@ -188,3 +188,52 @@ class TherapyModel {
     'created_at':       FieldValue.serverTimestamp(),
   };
 }
+
+
+// ── WeeklyPrintReviewModel stored in users/{uid}/WeeklyPrintReview ───────────────────────────────────────
+class WeeklyPrintReviewModel {
+  final String id;
+  final String sunday;
+  final String monday;
+  final String tuesday;
+  final String wednesday;
+  final String thursday;
+  final String friday;
+  final String saturday;
+
+  WeeklyPrintReviewModel({
+    required this.id,
+    required this.sunday,
+    required this.monday,
+    required this.tuesday,
+    required this.wednesday,
+    required this.thursday,
+    required this.friday,
+    required this.saturday,
+  });
+
+  factory WeeklyPrintReviewModel.fromDoc(DocumentSnapshot doc) {
+    final m = doc.data() as Map<String, dynamic>;
+    return WeeklyPrintReviewModel(
+      id:        doc.id,
+      sunday:      m['sunday']      ?? '',
+      monday:      m['monday']       ?? '',
+      tuesday:     m['tuesday'] ?? '',
+      wednesday:   m['wednesday']   ?? '',
+      thursday:    m['thursday']      ?? '',
+      friday:      m['friday']      ?? '',
+      saturday:    m['saturday']      ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+    'sunday':      sunday,
+    'monday':      monday,
+    'tuesday':     tuesday,
+    'wednesday':   wednesday,
+    'thursday':    thursday,
+    'friday':      friday,
+    'saturday':    saturday,
+    'created_at': FieldValue.serverTimestamp(),
+  };
+}

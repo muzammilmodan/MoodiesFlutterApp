@@ -69,7 +69,8 @@ class _ParentPlannerListScreenState extends State<ParentPlannerListScreen> {
   }
 
   void _navTracker(String tab) => Navigator.push(context,
-      MaterialPageRoute(builder: (_) => ParentsKidsMoodTrackerListScreen(tab: tab)));
+      MaterialPageRoute(builder: (_) => ParentsKidsMoodTrackerListScreen(tab: tab,
+          selectDate: _focused)));
 
   @override
   Widget build(BuildContext context) => Scaffold(
