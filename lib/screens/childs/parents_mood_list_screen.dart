@@ -15,7 +15,7 @@ class ParentsMoodListScreen extends StatefulWidget {
 
 class _ParentsMoodListScreenState extends State<ParentsMoodListScreen> {
   final _svc = FirebaseService();
-  List<MoodModel> _moods   = [];
+  List<MoodModel> _allMoods   = [];
   bool   _loading          = true;
   String _childName        = '';
 
@@ -35,17 +35,16 @@ class _ParentsMoodListScreenState extends State<ParentsMoodListScreen> {
         return;
       }
 
-      // Fetch child name
-      final childProfile =
-          await _svc.getUserProfile(); // own profile (to get the name if needed)
+   /*   // Fetch child name
+      final childProfile = await _svc.getUserProfile(); // own profile (to get the name if needed)
       // Actually fetch child's profile from Firestore directly
       final childDoc = await _svc.getUserProfile();
-
+*/
       // Fetch child's moods
       final moods = await _svc.getChildMoods(childUid);
       if (mounted) {
         setState(() {
-          _moods    = moods;
+          _allMoods    = moods;
           _loading  = false;
         });
       }
@@ -93,9 +92,9 @@ class _ParentsMoodListScreenState extends State<ParentsMoodListScreen> {
 
   // ── mood frequency summary ──────────────────────────────────────────────
   Widget _summary() {
-    if (_moods.isEmpty) return const SizedBox();
+    if (_allMoods.isEmpty) return const SizedBox();
     final freq = <String, int>{};
-    for (final m in _moods) {
+    for (final m in _allMoods) {
       freq[m.mood] = (freq[m.mood] ?? 0) + 1;
     }
     final sorted = freq.entries.toList()
@@ -114,7 +113,7 @@ class _ParentsMoodListScreenState extends State<ParentsMoodListScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             const SizedBox(height: 12),
             ...top.map((e) {
-              final pct = e.value / _moods.length;
+              final pct = e.value / _allMoods.length;
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
@@ -166,18 +165,18 @@ class _ParentsMoodListScreenState extends State<ParentsMoodListScreen> {
       appBar: AppBar(title: const Text("Child's Mood History")),
       body: _loading
           ? const Center(child: CircularProgressIndicator(color: kAppBg))
-          : _moods.isEmpty
-              ? Center(
+          : _allMoods.isEmpty
+              ? const Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.mood_bad, size: 64, color: Colors.grey),
-                      const SizedBox(height: 12),
-                      const Text('No mood records found',
+                      Icon(Icons.mood_bad, size: 64, color: Colors.grey),
+                      SizedBox(height: 12),
+                      Text('No mood records found',
                           style: TextStyle(
                               color: Colors.grey, fontSize: 16)),
-                      const SizedBox(height: 8),
-                      const Text(
+                      SizedBox(height: 8),
+                      Text(
                           'Your child hasn\'t logged any moods yet.',
                           style: TextStyle(color: Colors.grey)),
                     ],
@@ -191,7 +190,7 @@ class _ParentsMoodListScreenState extends State<ParentsMoodListScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15)),
                     const SizedBox(height: 10),
-                    ..._moods.map(
+                    ..._allMoods.map(
                       (m) => Card(
                         margin: const EdgeInsets.only(bottom: 10),
                         shape: RoundedRectangleBorder(
@@ -205,7 +204,7 @@ class _ParentsMoodListScreenState extends State<ParentsMoodListScreen> {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold)),
                           trailing: Text(
-                            m.formattedDate,
+                            m.formattedDateTime,
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 12),
                           ),

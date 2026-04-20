@@ -5,17 +5,17 @@ import '../../services/firebase_service.dart';
 import '../../models/models.dart';
 import '../../widgets/common_widgets.dart';
 
-class KidsMoodTrackerListScreen extends StatefulWidget {
+class ParentsKidsMoodTrackerListScreen extends StatefulWidget {
   final String tab; // 'Tracker' | 'Therapy' | 'Reminder' | 'Notes'
-  const KidsMoodTrackerListScreen({super.key, required this.tab});
+  const ParentsKidsMoodTrackerListScreen({super.key, required this.tab});
 
   @override
-  State<KidsMoodTrackerListScreen> createState() =>
+  State<ParentsKidsMoodTrackerListScreen> createState() =>
       _KidsMoodTrackerListScreenState();
 }
 
 class _KidsMoodTrackerListScreenState
-    extends State<KidsMoodTrackerListScreen> {
+    extends State<ParentsKidsMoodTrackerListScreen> {
   final _svc = FirebaseService();
 
   bool _loading  = true;
@@ -40,21 +40,75 @@ class _KidsMoodTrackerListScreenState
     try {
       switch (widget.tab) {
         case 'Tracker':
-          _moods = await _svc.getMoods();
+          _moods = await _getMoodTrackerList();
           break;
         case 'Reminder':
-          _reminders = await _svc.getReminders();
+          _reminders = await _getChildRemindersList();
           break;
         case 'Therapy':
-          _therapies = await _svc.getTherapySessions();
+          _therapies = await _getChildTherapySessionsList();
           break;
         case 'Notes':
-          _reminders = await _svc.getReminders();
+          _reminders = await _getChildRemindersList();
           break;
       }
     } catch (_) {}
     if (mounted) setState(() => _loading = false);
   }
+
+  Future<List<MoodModel>> _getMoodTrackerList() async {
+    try {
+      // Get the linked child's UID from parent profile
+      final childUid = await _svc.getLinkedChildUid();
+      if (childUid == null || childUid.isEmpty) {
+        // If no child linked yet, show empty state
+        if (mounted) setState(() => _loading = false);
+        return [];
+      }
+
+      // Fetch child's moods
+      return  await _svc.getChildMoods(childUid);
+    } catch (_) {
+      return [];
+    }
+  }
+
+  Future<List<TherapyModel>> _getChildTherapySessionsList() async {
+    try {
+
+      // Get the linked child's UID from parent profile
+      final childUid = await _svc.getLinkedChildUid();
+      if (childUid == null || childUid.isEmpty) {
+        // If no child linked yet, show empty state
+        if (mounted) setState(() => _loading = false);
+        return [];
+      }
+
+      // Fetch child's moods
+      return  await _svc.getChildTherapySessions(childUid);
+    } catch (_) {
+      return [];
+    }
+  }
+
+  Future<List<ReminderModel>> _getChildRemindersList() async {
+    try {
+
+      // Get the linked child's UID from parent profile
+      final childUid = await _svc.getLinkedChildUid();
+      if (childUid == null || childUid.isEmpty) {
+        // If no child linked yet, show empty state
+        if (mounted) setState(() => _loading = false);
+        return [];
+      }
+
+      // Fetch child's moods
+      return  await _svc.getChildReminders(childUid);
+    } catch (_) {
+      return [];
+    }
+  }
+
 
   Future<void> _save() async {
     if (_f1.text.trim().isEmpty) {
@@ -142,7 +196,7 @@ class _KidsMoodTrackerListScreenState
               children: [
                 if (_showForm) _buildForm(),
                 Expanded(child: _buildList()),
-                SizedBox(height: 10,)
+                const SizedBox(height: 10,)
               ],
             ),
     );
@@ -150,9 +204,9 @@ class _KidsMoodTrackerListScreenState
 
   String _tabTitle() {
     switch (widget.tab) {
-      case 'Tracker':  return 'Mood History';
+      case 'Tracker':  return 'Child Mood History';
       case 'Reminder': return 'Reminders';
-      case 'Therapy':  return 'Therapy Sessions';
+      case 'Therapy':  return 'Child Therapy Sessions';
       case 'Notes':    return 'Notes';
       default:         return widget.tab;
     }

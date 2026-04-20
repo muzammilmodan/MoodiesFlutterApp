@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moodiesapp/screens/childs/parents_mood_list_screen.dart';
 import 'package:moodiesapp/screens/childs/planner_list_screen.dart';
+import 'package:moodiesapp/screens/parent/parent_planner_list_screen.dart';
 import '../../services/firebase_service.dart';
 import '../../widgets/common_widgets.dart';
 import '../login_screen.dart';
@@ -92,7 +93,7 @@ class _HomeParentScreenState extends State<HomeParentScreen> {
           HomeMenuTile(
             label: 'Planner',
             icon: Icons.calendar_today,
-            onTap: () => _nav(const PlannerListScreen()),
+            onTap: () => _nav(const ParentPlannerListScreen()),
           ),
           HomeMenuTile(
             label: 'Print Weekly Review',

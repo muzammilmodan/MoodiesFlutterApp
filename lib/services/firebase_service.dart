@@ -248,9 +248,18 @@ class FirebaseService {
     await _userDoc.update({'linked_child_uid': childUid});
   }
 
+  /// Get linked child UID from parent's profile
+  Future<String?> getLinkedChildUid() async {
+    final snap = await _userDoc.get();
+    if (!snap.exists) return null;
+    return (snap.data() as Map<String, dynamic>)['linked_child_uid'] as String?;
+  }
+
+
   // ══════════════════════════════════════════════════════════════════════════
-  // PARENT – Read child's moods
+  // PARENT – Read child's details
   // ══════════════════════════════════════════════════════════════════════════
+
 
   /// Get moods of a specific child by uid
   Future<List<MoodModel>> getChildMoods(String childUid) async {
@@ -263,10 +272,27 @@ class FirebaseService {
     return snap.docs.map((d) => MoodModel.fromDoc(d)).toList();
   }
 
-  /// Get linked child UID from parent's profile
-  Future<String?> getLinkedChildUid() async {
-    final snap = await _userDoc.get();
-    if (!snap.exists) return null;
-    return (snap.data() as Map<String, dynamic>)['linked_child_uid'] as String?;
+  /// Get Therapy Sessions of a specific child by uid
+  Future<List<TherapyModel>> getChildTherapySessions(String childUid) async {
+    final snap = await _db
+        .collection(AppConstants.colUsers)
+        .doc(childUid)
+        .collection(AppConstants.colTherapy)
+        .orderBy('created_at', descending: true)
+        .get();
+    return snap.docs.map((d) => TherapyModel.fromDoc(d)).toList();
   }
+
+  /// Get reminders of a specific child by uid
+  Future<List<ReminderModel>> getChildReminders(String childUid) async {
+    final snap = await _db
+        .collection(AppConstants.colUsers)
+        .doc(childUid)
+        .collection(AppConstants.colReminders)
+        .orderBy('created_at', descending: true)
+        .get();
+    return snap.docs.map((d) => ReminderModel.fromDoc(d)).toList();
+  }
+
+
 }

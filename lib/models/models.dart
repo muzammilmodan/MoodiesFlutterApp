@@ -2,6 +2,7 @@
 // Plain Dart models — no JSON parsing needed (Firestore returns Map<String,dynamic>)
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 // ── User profile stored in Firestore users/{uid} ─────────────────────────────
 class UserModel {
@@ -90,9 +91,14 @@ class MoodModel {
 
   String get formattedDate =>
       createdAt == null ? '' :
-      '${createdAt!.year}-${_p(createdAt!.month)}-${_p(createdAt!.day)}';
+      '${createdAt?.year}-${_p(createdAt?.month ?? 0)}-${_p(createdAt?.day ?? 0)}';
 
   String _p(int n) => n.toString().padLeft(2, '0');
+
+  String get formattedDateTime {
+    if (createdAt == null) return '';
+    return DateFormat('dd MMM yyyy, hh:mm a').format(createdAt!);
+  }
 }
 
 // ── Event stored in users/{uid}/events ───────────────────────────────────────
