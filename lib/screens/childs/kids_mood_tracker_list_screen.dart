@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import '../../services/firebase_service.dart';
 import '../../models/models.dart';
+import '../../utils/app_constants.dart';
+import '../../utils/session_manager.dart';
 import '../../widgets/common_widgets.dart';
 
 class KidsMoodTrackerListScreen extends StatefulWidget {
@@ -22,17 +24,30 @@ class _KidsMoodTrackerListScreenState
   bool _showForm = false;
   bool _saving   = false;
 
-  List<MoodModel>     _moods     = [];
+  List<MoodModel>     _allMoodsList     = [];
   List<ReminderModel> _reminders = [];
   List<TherapyModel>  _therapies = [];
 
   final _f1 = TextEditingController(); // main field
   final _f2 = TextEditingController(); // datetime field
 
+  int    _gender   = AppConstants.isMale;
+  String _hair     = AppConstants.hairBlonde;
+
   @override
   void initState() {
     super.initState();
+    _loadProfile();
     _fetch();
+  }
+
+  Future<void> _loadProfile() async {
+    final g = await SessionManager.getIsGender();
+    final h = await SessionManager.getHairColor();
+    setState(() {
+      _gender = g;
+      _hair   = h.isEmpty ? AppConstants.hairBlonde : h;
+    });
   }
 
   Future<void> _fetch() async {
@@ -40,7 +55,7 @@ class _KidsMoodTrackerListScreenState
     try {
       switch (widget.tab) {
         case 'Tracker':
-          _moods = await _svc.getMoods();
+          _allMoodsList = await _svc.getMoods();
           break;
         case 'Reminder':
           _reminders = await _svc.getReminders();
@@ -142,7 +157,7 @@ class _KidsMoodTrackerListScreenState
               children: [
                 if (_showForm) _buildForm(),
                 Expanded(child: _buildList()),
-                SizedBox(height: 10,)
+                const SizedBox(height: 10,)
               ],
             ),
     );
@@ -243,12 +258,12 @@ class _KidsMoodTrackerListScreenState
   Widget _buildList() {
     switch (widget.tab) {
       case 'Tracker':
-        if (_moods.isEmpty) return _empty('No mood records yet');
+        if (_allMoodsList.isEmpty) return _empty('No mood records yet');
         return ListView.builder(
           padding: const EdgeInsets.all(16),
-          itemCount: _moods.length,
+          itemCount: _allMoodsList.length,
           itemBuilder: (_, i) {
-            final m = _moods[i];
+            final m = _allMoodsList[i];
             return Card(
               margin: const EdgeInsets.only(bottom: 10),
               shape: RoundedRectangleBorder(

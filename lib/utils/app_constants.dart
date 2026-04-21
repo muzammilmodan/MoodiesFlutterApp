@@ -6,12 +6,12 @@ class AppConstants {
   // Hair colors
   static const String hairBlonde = 'blonde';
   static const String hairBrown  = 'brown';
-  static const String hairRed    = 'read';
+  static const String hairRed    = 'red';
   static const String hairTan    = 'tan';
 
   // Skin colors
   static const String skinBlonde = 'blonde';
-  static const String skinRed    = 'read';
+  static const String skinRed    = 'red';
   static const String skinBrown  = 'brown';
   static const String skinTan    = 'tan';
 
