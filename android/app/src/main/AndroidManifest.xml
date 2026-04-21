@@ -28,9 +28,9 @@
         android:fullBackupContent="@xml/backup_rules"
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Moodiesapps"
         android:label="Moodies"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/icn_playstore"
+        android:enableOnBackInvokedCallback="true">
 
         <activity
             android:name=".MainActivity"
@@ -63,7 +63,12 @@
 
         <activity
             android:name=".colorsPic.controller.main.MainColorPicActivity"
-            android:label="@string/app_name"/> <!-- android:launchMode="singleInstance" -->
+            android:label="@string/app_name"
+            android:theme="@style/MoodiesAppTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false"
+            /> <!-- android:launchMode="singleInstance" -->
         <activity
             android:name=".colorsPic.controller.paint.PaintActivity"
             android:screenOrientation="fullSensor"
@@ -71,7 +76,10 @@
         <activity
             android:name=".colorsPic.controller.categorylist.GridViewActivity"
             android:label="@string/app_name"
-            android:screenOrientation="fullSensor"/>
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/MoodiesAppTheme"
+            android:exported="false"/>
         <activity
             android:name=".colorsPic.controller.paint.AdvancePaintActivity"
             android:screenOrientation="portrait"

@@ -2,66 +2,73 @@
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@color/lightgray">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/app_bg">
 
+    <!-- TOP BAR -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        android:elevation="6dp">
 
-    <RelativeLayout
-            android:background="@color/app_bg"
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80sdp"
-        android:elevation="8dp">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:contentInsetStartWithNavigation="0dp"
+            app:titleTextColor="@android:color/white">
 
+            <!-- Back Button -->
+            <ImageView
+                android:id="@+id/ivBackPaint"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_back_white"
+                android:tint="@android:color/white"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back" />
 
-        <!-- ✅ White back arrow icon -->
-        <ImageView
-            android:id="@+id/ivBackPaint"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="false"
-            android:padding="4dp"
-            android:src="@drawable/ic_back_white"
-            android:tint="@android:color/white"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back" />
+            <!-- Center Title -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Moodies"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <!-- ✅ Centered white title -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:text="Moodies"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium" />
+        </androidx.appcompat.widget.Toolbar>
 
-
-
+        <!-- Tabs -->
         <com.google.android.material.tabs.TabLayout
-             android:id="@+id/tabs"
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_alignParentBottom="true"
-            app:tabTextColor="@android:color/white"
-            app:tabSelectedTextColor="@android:color/white"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
             app:tabIndicatorColor="@android:color/white"
-            app:tabRippleColor="@android:color/white"/>
-    </RelativeLayout>
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="@android:color/white" />
 
+    </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- CONTENT -->
     <androidx.viewpager.widget.ViewPager
-            android:layout_marginTop="@dimen/_80sdp"
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-        />
-
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

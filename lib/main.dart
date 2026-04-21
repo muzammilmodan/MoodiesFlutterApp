@@ -9,7 +9,6 @@ import 'widgets/common_widgets.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(const MoodiesApp());
 }
 
@@ -18,8 +17,12 @@ class MoodiesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+        useMaterial3: true,
+      ),
       home: SplashScreen(),
     );
   }

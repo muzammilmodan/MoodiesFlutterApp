@@ -248,12 +248,15 @@ class HomeMenuTile extends StatelessWidget {
                   child: Icon(icon, color: kAppBg, size: 22),
                 ),
                 const SizedBox(width: 14),
-                Text(
-                  label,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF333333),
+                Expanded(
+                  child: Text(
+                    label,
+                    maxLines: 2,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF333333),
+                    ),
                   ),
                 ),
                 const Spacer(),

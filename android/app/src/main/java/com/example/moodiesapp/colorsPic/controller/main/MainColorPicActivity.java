@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -57,6 +58,14 @@ public class MainColorPicActivity extends AppCompatBaseAcitivity {
         try {
             setTitle(R.string.app_name);
 
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().hide();
+            }
+
+            getWindow().setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            );
             //Todo: Mujju hide notification
             //UmengUtil.pushNotification(this);
 
@@ -89,7 +98,7 @@ public class MainColorPicActivity extends AppCompatBaseAcitivity {
 
     private void showMarketCommentDialog() {
         if (Math.random() < 0.15 && SharedPreferencesFactory.getBoolean(this, SharedPreferencesFactory.CommentEnableKey)) {
-            myDialogFactory.showCommentDialog();
+            //myDialogFactory.showCommentDialog();
         } else if (Math.random() > 0.15 && Math.random() < 0.25 && SharedPreferencesFactory.getBoolean(this, SharedPreferencesFactory.AddQQGroupEnable)) {
             //myDialogFactory.showAddQQgroup();
         }

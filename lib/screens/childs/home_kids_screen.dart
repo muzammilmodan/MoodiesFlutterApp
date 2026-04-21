@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:moodiesapp/screens/childs/chill_music_screen.dart';
 import 'package:moodiesapp/screens/childs/planner_list_screen.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../services/firebase_service.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/common_widgets.dart';
@@ -92,8 +94,10 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// 👋 Name (flexible)
+
+                /// 👋 Name
                 Expanded(
                   child: Text(
                     _name.isEmpty ? 'Hi there! 👋' : 'Hi, $_name! 👋',
@@ -108,14 +112,67 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
 
                 const SizedBox(width: 10),
 
-                /// 🔐 Code (always visible)
-                Text(
-                  _myCode,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                /// Code + Icons
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+
+                    /// Code Text
+                    Text(
+                      _myCode,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 6),
+
+                    /// Icons
+                    Row(
+                      children: [
+
+                        /// Copy
+                        InkWell(
+                          onTap: () async {
+                            await Clipboard.setData(
+                              ClipboardData(text: _myCode),
+                            );
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Code copied"),
+                              ),
+                            );
+                          },
+                          child: const Icon(
+                            Icons.copy,
+                            size: 20,
+                          ),
+                        ),
+
+                        const SizedBox(width: 12),
+
+                        /// Share
+                        InkWell(
+                          onTap: () {
+                            Share.share(
+                              '''Hello, this is your parents.
+
+This is your child code please save this code and use this code in your parent side so show your child all activity in your dashboard.
+
+Code: $_myCode''',
+                            );
+                          },
+                          child: const Icon(
+                            Icons.share,
+                            size: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),

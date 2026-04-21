@@ -3,8 +3,11 @@ package com.example.moodiesapp.colorsPic.controller.categorylist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,11 +41,22 @@ public class GridViewActivity extends BaseActivity {
     List<PictureBean.Picture> pictureBeans;
     GirdRecyclerViewAdapter gridViewAdapter;
     private TextView titleView;
+    private ImageView ivBack;
     private SwipeRefreshLayout swipeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
+
         try {
             categoryId = Objects.requireNonNull(getIntent().getExtras()).getInt(MyApplication.THEMEID);
             initViews();
@@ -133,15 +147,27 @@ public class GridViewActivity extends BaseActivity {
     private void initViews() {
         try {
             setContentView(R.layout.activity_gridview);
+
+            Toolbar toolbar = findViewById(R.id.toolbar);
+
             titleView = (TextView) findViewById(R.id.toolbar_title);
+            ivBack = (ImageView) findViewById(R.id.ivBack);
             swipeView = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
             gridView = (EmptyRecyclerView) findViewById(R.id.detail_gird);
+
+            setSupportActionBar(toolbar);
+
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
+
 
             GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             gridView.setLayoutManager(layoutManager);
             titleView.setText(getIntent().getStringExtra(MyApplication.THEMENAME));
             swipeView.setColorSchemeResources(R.color.red, R.color.orange, R.color.green, R.color.maincolor);
+
             swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -165,6 +191,8 @@ public class GridViewActivity extends BaseActivity {
                     }
                 }
             });
+
+            ivBack.setOnClickListener(v -> finish());
         } catch (Exception e) {
             e.printStackTrace();
         }
