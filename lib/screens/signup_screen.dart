@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:moodiesapp/utils/common_snackbar.dart';
 import '../services/firebase_service.dart';
 import '../utils/app_constants.dart';
 import '../utils/session_manager.dart';
@@ -61,7 +62,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         role:        _role,
       );
       if (!mounted) return;
-      _snack('Account created successfully! 🎉');
+      CommonSnackbar.showSuccessSnackbar(context: context,message:"Account created successfully! 🎉");
+
       if (user.isChild == AppConstants.isChildKids) {
         _go(const CreateCharacterScreen());
       } else {
@@ -79,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void _go(Widget s) => Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => s), (_) => false);
 
-  void _snack(String m) => showSnack(context, m);
+  void _snack(String m) => CommonSnackbar.showErrorSnackbar(context: context,message: m);
 
   String _authError(String code) => switch (code) {
     'email-already-in-use' => 'This email is already registered.',

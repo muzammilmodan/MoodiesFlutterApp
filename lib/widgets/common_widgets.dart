@@ -30,9 +30,6 @@ class LoadingDialog {
   }
 }
 
-// ── Snackbar helper ────────────────────────────────────────────────────────
-void showSnack(BuildContext context, String msg) =>
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
 
 // ── Primary button ─────────────────────────────────────────────────────────
 class AppButton extends StatelessWidget {
@@ -65,6 +62,7 @@ class AppButton extends StatelessWidget {
               color: textColor ?? kWhite,
               fontSize: 16,
               fontWeight: FontWeight.bold,
+              fontFamily: 'ChocoCooky',
             ),
           ),
         ),

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import '../services/firebase_service.dart';
 import '../utils/app_constants.dart';
+import '../utils/common_snackbar.dart';
 import '../utils/session_manager.dart';
 import '../widgets/common_widgets.dart';
 import 'signup_screen.dart';
@@ -57,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final user = await _svc.login(_emailCtrl.text.trim(), _pwCtrl.text);
       if (!mounted) return;
+      CommonSnackbar.showSuccessSnackbar(context: context,message:"Login successfully! 🎉");
       if (user.role == AppConstants.roleParent) {
         final done = await SessionManager.getIsSelectCode();
         _go(done ? const HomeParentScreen() : const CodeForKidsScreen());
@@ -115,7 +117,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void _go(Widget s) => Navigator.of(context)
       .pushAndRemoveUntil(MaterialPageRoute(builder: (_) => s), (_) => false);
 
-  void _snack(String msg) => showSnack(context, msg);
+  void _snack(String msg) => CommonSnackbar.showErrorSnackbar(context: context,
+      message:msg);
 
   String _authError(String code) => switch (code) {
         'user-not-found' => 'No account found with this email.',

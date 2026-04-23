@@ -47,3 +47,11 @@ class AppConstants {
   static const String colTherapy   = 'therapy';
   static const String colWeeklyPrint   = 'weeklyprint';
 }
+
+class AppImages {
+  static const String icnJumpKids='assets/images/icn_jump_kids.json';
+
+
+  static const String icnGirlCharacter='assets/images/icn_female_avatar.png';
+  static const String icnMaleCharacter='assets/images/icn_male_avatar.png';
+}

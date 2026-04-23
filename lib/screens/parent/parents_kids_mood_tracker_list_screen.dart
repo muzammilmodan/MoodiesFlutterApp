@@ -1,6 +1,7 @@
 // lib/screens/kids_mood_tracker_list_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:moodiesapp/utils/common_snackbar.dart';
 import '../../services/firebase_service.dart';
 import '../../models/models.dart';
 import '../../widgets/common_widgets.dart';
@@ -115,7 +116,7 @@ class _KidsMoodTrackerListScreenState
 
   Future<void> _save() async {
     if (_f1.text.trim().isEmpty) {
-      showSnack(context, 'Please fill in the required field');
+      CommonSnackbar.showErrorSnackbar(context: context, message: 'Please fill in the required field');
       return;
     }
     setState(() => _saving = true);
@@ -130,13 +131,13 @@ class _KidsMoodTrackerListScreenState
           break;
       }
       if (!mounted) return;
-      showSnack(context, 'Saved successfully!');
+      CommonSnackbar.showSuccessSnackbar(context: context, message:'Saved successfully!');
       _f1.clear();
       _f2.clear();
       setState(() => _showForm = false);
       _fetch();
     } catch (e) {
-      if (mounted) showSnack(context, 'Failed. Please try again.');
+      if (mounted) CommonSnackbar.showErrorSnackbar(context: context, message: 'Failed. Please try again.');
     } finally {
       if (mounted) setState(() => _saving = false);
     }

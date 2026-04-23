@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import '../models/models.dart';
 import '../services/firebase_service.dart';
+import '../utils/common_snackbar.dart';
 import '../widgets/common_widgets.dart';
 
 class PrintListScreen extends StatefulWidget {
@@ -70,11 +71,15 @@ class _PrintListScreenState extends State<PrintListScreen> {
       if (!mounted) return;
       LoadingDialog.hide(context);
 
-      showSnack(context, 'Weekly review saved! 🖨️');
+      CommonSnackbar.showSuccessSnackbar(context: context,
+          message: 'Weekly review saved! 🖨️');
+
       Navigator.pop(context);
 
     } catch (e) {
-      if (mounted) { LoadingDialog.hide(context); showSnack(context, 'Failed. Try again.'); }
+      if (mounted) {
+        LoadingDialog.hide(context);
+        CommonSnackbar.showSuccessSnackbar(context: context,message: 'Failed. Try again.'); }
     }
   }
 

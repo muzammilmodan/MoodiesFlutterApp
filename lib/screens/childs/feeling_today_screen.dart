@@ -1,6 +1,7 @@
 // lib/screens/feeling_today_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:moodiesapp/utils/common_snackbar.dart';
 import '../../services/firebase_service.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/session_manager.dart';
@@ -48,7 +49,7 @@ class _FeelingTodayScreenState extends State<FeelingTodayScreen> {
 
   Future<void> _confirmMood() async {
     if (_selected < 0) {
-      showSnack(context, 'Please select how you feel today');
+      CommonSnackbar.showErrorSnackbar(context: context, message:'Please select how you feel today');
       return;
     }
     final mood = AppConstants.moods[_selected];
@@ -74,12 +75,12 @@ class _FeelingTodayScreenState extends State<FeelingTodayScreen> {
       await _svc.addMood(mood);
       await SessionManager.setAvatarTitle(mood);
       if (!mounted) return;
-      showSnack(context, 'Mood saved! 🎉');
+      CommonSnackbar.showSuccessSnackbar(context: context, message: 'Mood saved! 🎉');
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => const HomeKidsScreen()),
           (_) => false);
     } catch (e) {
-      if (mounted) showSnack(context, 'Failed to save mood. Try again.');
+      if (mounted)  CommonSnackbar.showErrorSnackbar(context: context, message:'Failed to save mood. Try again.');
     } finally {
       if (mounted) setState(() => _saving = false);
     }

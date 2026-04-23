@@ -1,6 +1,7 @@
 // lib/screens/planner_list_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:moodiesapp/utils/common_snackbar.dart';
 import '../../services/firebase_service.dart';
 import '../../models/models.dart';
 import '../../widgets/common_widgets.dart';
@@ -44,7 +45,7 @@ class _PlannerListScreenState extends State<PlannerListScreen> {
 
   Future<void> _addEvent() async {
     if (_titleCtrl.text.trim().isEmpty) {
-      showSnack(context, 'Please enter event title'); return;
+      CommonSnackbar.showErrorSnackbar(context: context, message: 'Please enter event title'); return;
     }
     LoadingDialog.show(context);
     try {
@@ -57,13 +58,13 @@ class _PlannerListScreenState extends State<PlannerListScreen> {
       );
       if (!mounted) return;
       LoadingDialog.hide(context);
-      showSnack(context, 'Event added!');
+      CommonSnackbar.showSuccessSnackbar(context: context, message: 'Event added successful!');
       _titleCtrl.clear(); _typeCtrl.clear();
       _reminderCtrl.clear(); _notesCtrl.clear();
       setState(() => _showForm = false);
       _fetch(_selDate);
     } catch (e) {
-      if (mounted) { LoadingDialog.hide(context); showSnack(context, 'Failed. Try again.'); }
+      if (mounted) { LoadingDialog.hide(context);  CommonSnackbar.showErrorSnackbar(context: context, message: 'Failed. Try again.'); }
     }
   }
 

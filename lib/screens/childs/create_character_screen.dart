@@ -1,6 +1,7 @@
 // lib/screens/create_character_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:moodiesapp/utils/common_snackbar.dart';
 import '../../services/firebase_service.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/session_manager.dart';
@@ -37,7 +38,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
       await SessionManager.setHairColor(_hair);
       await SessionManager.setSkinColor(_skin);
       if (!mounted) return;
-      _snack('Character saved! 🎉');
+      CommonSnackbar.showSuccessSnackbar(context: context, message:'Character saved! 🎉');
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => const HomeKidsScreen()),
           (_) => false);
@@ -48,7 +49,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
     }
   }
 
-  void _snack(String m) => showSnack(context, m);
+  void _snack(String m) =>  CommonSnackbar.showErrorSnackbar(context: context, message: m);
 
   // ── gender preview image ─────────────────────────────────────────────────
   String _img(String mood, String g, String h) {
@@ -66,6 +67,72 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
         errorBuilder: (_, __, ___) =>
             Icon(Icons.person, size: size, color: Colors.grey),
       );
+
+
+  // ── create character card ──────────────────────────────────────────────────────────
+  Widget _createCharacterCard({
+    required String label,
+    required bool selected,
+    required VoidCallback onTap,
+    Widget? child,
+  }) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(12),
+          transform: Matrix4.identity()
+            ..translate(0.0, selected ? -10.0 : 0.0)
+            ..scale(selected ? 1.05 : 1.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+              color: selected ? kAppBg : Colors.grey.shade300,
+              width: 2,
+            ),
+            boxShadow: selected
+                ? [
+              BoxShadow(
+                color: kAppBg.withOpacity(0.3),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              )
+            ]
+                : [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              )
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // ✅ IMPORTANT
+            children: [
+              Opacity(
+                opacity: selected ? 1 : 0.7,
+                child: child ?? const SizedBox(),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: selected ? kAppBg : Colors.black87,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
 
   // ── option card ──────────────────────────────────────────────────────────
   Widget _card({
@@ -101,24 +168,31 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
 
   // ── step: gender ─────────────────────────────────────────────────────────
   Widget _genderStep() => Column(
+    mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text('Choose Your Character',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 28),
+              style: TextStyle(fontFamily: 'ChocoCooky',fontSize: 22,
+                  fontWeight: FontWeight.bold)),
+          const SizedBox(height: 70),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _card(
+              _createCharacterCard(
                 label: 'Boy',
                 selected: _gender == AppConstants.isMale,
                 onTap: () => setState(() => _gender = AppConstants.isMale),
-                child: _avatar('happy', 'boy', 'blonde', size: 90),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.asset(AppImages.icnMaleCharacter),
+                ),
               ),
-              _card(
+              _createCharacterCard(
                 label: 'Girl',
                 selected: _gender == AppConstants.isFemale,
                 onTap: () => setState(() => _gender = AppConstants.isFemale),
-                child: _avatar('happy', 'girl', 'blonde', size: 90),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.asset(AppImages.icnGirlCharacter),
+                ),
               ),
             ],
           ),
@@ -140,7 +214,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
     return Column(
       children: [
         const Text('Choose Hair Colour',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            style: TextStyle(fontFamily: 'ChocoCooky', fontSize: 22, fontWeight: FontWeight.bold)),
         const SizedBox(height: 20),
         Wrap(
           alignment: WrapAlignment.center,
@@ -167,7 +241,14 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
           Expanded(
               child: AppButton(
                   label: 'Next: Skin Tone',
-                  onTap: () => setState(() => _step = _Step.skin))),
+                  onTap: () {
+                    if (_hair.isEmpty) {
+                      _snack('Please select a hair colour');
+                      return;
+                    }
+                    setState(() => _step = _Step.skin);
+                  }
+              ),),
         ]),
       ],
     );
@@ -211,9 +292,12 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
           const SizedBox(width: 12),
           Expanded(
               child: _saving
-                  ? const Center(
+                  ?  const Center(
                       child: CircularProgressIndicator(color: kAppBg))
-                  : AppButton(label: 'Save My Character 🎉', onTap: _save)),
+                  : AppButton(
+                label: 'Save My Character 🎉',
+                onTap: () => (_skin.isEmpty) ? null : _save,
+              )),
         ]),
       ],
     );
@@ -222,7 +306,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create My Character')),
+      appBar: AppBar(title: const Text('Create My Character',style: TextStyle(fontFamily: 'ChocoCooky',),)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: () {
