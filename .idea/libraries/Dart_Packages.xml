@@ -72,6 +72,13 @@
             </list>
           </value>
         </entry>
+        <entry key="awesome_snackbar_content">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/awesome_snackbar_content-0.1.6/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="boolean_selector">
           <value>
             <list>
@@ -268,6 +275,20 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_localizations">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Downloads/flutter/packages/flutter_localizations/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="flutter_svg">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-2.2.2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_test">
           <value>
             <list>
@@ -384,6 +405,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path-1.9.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="path_parsing">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_parsing-1.1.0/lib" />
             </list>
           </value>
         </entry>
@@ -695,6 +723,27 @@
             </list>
           </value>
         </entry>
+        <entry key="vector_graphics">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics-1.1.19/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="vector_graphics_codec">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.13/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="vector_graphics_compiler">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_compiler-1.1.19/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="vector_math">
           <value>
             <list>
@@ -750,6 +799,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/audioplayers_platform_interface-7.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/audioplayers_web-5.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/audioplayers_windows-4.3.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/awesome_snackbar_content-0.1.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/boolean_selector-2.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/cached_network_image-3.4.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/cached_network_image_platform_interface-4.1.1/lib" />
@@ -777,6 +827,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fixnum-1.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_cache_manager-3.4.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-3.0.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-2.2.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-1.6.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_parser-4.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/intl-0.19.0/lib" />
@@ -792,6 +843,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nm-0.5.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/octo_image-2.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path-1.9.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_parsing-1.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider-2.1.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.2.19/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.2/lib" />
@@ -835,6 +887,9 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_web-2.4.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/uuid-4.5.3/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics-1.1.19/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.13/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_graphics_compiler-1.1.19/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vm_service-14.3.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/web-1.1.1/lib" />
@@ -843,6 +898,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/xml-6.5.0/lib" />
       <root url="file://$USER_HOME$/Downloads/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$USER_HOME$/Downloads/flutter/packages/flutter/lib" />
+      <root url="file://$USER_HOME$/Downloads/flutter/packages/flutter_localizations/lib" />
       <root url="file://$USER_HOME$/Downloads/flutter/packages/flutter_test/lib" />
       <root url="file://$USER_HOME$/Downloads/flutter/packages/flutter_web_plugins/lib" />
     </CLASSES>

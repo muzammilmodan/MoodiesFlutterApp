@@ -50,6 +50,17 @@ class _KidsMoodTrackerListScreenState
     });
   }
 
+  String _imgPath(String mood) {
+    final g = _gender == AppConstants.isMale ? 'boy' : 'girl';
+    final m = mood.toLowerCase();
+
+    final hair = _hair == AppConstants.hairTan
+        ? '${g == 'boy' ? 'tan_wz_black' : 'tan_wz_black_hair'}'
+        : _hair;
+
+    return 'assets/images/${m}_${g}_$hair.jpg';
+  }
+
   Future<void> _fetch() async {
     setState(() => _loading = true);
     try {
@@ -270,8 +281,20 @@ class _KidsMoodTrackerListScreenState
                   borderRadius: BorderRadius.circular(12)),
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: _moodColor(m.mood),
-                  child: Icon(_moodIcon(m.mood), color: Colors.white),
+                  radius: 28,
+                  backgroundColor: Colors.transparent,
+                  child: ClipOval(
+                    child: Image.asset(
+                      _imgPath(m.mood),
+                      width: 56,
+                      height: 56,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Icon(
+                        _moodIcon(m.mood),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
                 title: Text(m.mood,
                     style: const TextStyle(fontWeight: FontWeight.bold)),

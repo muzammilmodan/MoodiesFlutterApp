@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:moodiesapp/screens/childs/chill_music_screen.dart';
 import 'package:moodiesapp/screens/childs/planner_list_screen.dart';
+import 'package:moodiesapp/utils/common_snackbar.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../services/firebase_service.dart';
 import '../../utils/session_manager.dart';
@@ -96,7 +97,6 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 /// 👋 Name
                 Expanded(
                   child: Text(
@@ -116,7 +116,6 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-
                     /// Code Text
                     Text(
                       _myCode,
@@ -132,7 +131,6 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
                     /// Icons
                     Row(
                       children: [
-
                         /// Copy
                         InkWell(
                           onTap: () async {
@@ -183,7 +181,6 @@ Code: $_myCode''',
             child: Text('What would you like to do today?',
                 style: TextStyle(color: Colors.grey)),
           ),
-
           const SizedBox(height: 16),
           HomeMenuTile(
               label: 'Daily Check In — How do you feel?',
@@ -200,9 +197,18 @@ Code: $_myCode''',
                 OpenColorScreen.openNativeScreen();
               }),
           HomeMenuTile(
-              label: 'Chill Music',
-              icon: Icons.music_note,
-              onTap: () => _nav(const ChillMusicScreen())),
+            label: 'Chill Music',
+            icon: Icons.music_note,
+            onTap: () {
+              CommonSnackbar.showInfoSnackbar(
+                context: context,
+                message: "Chill Music Working on It.",
+              );
+            }
+            // onTap: () => _nav(
+            //   const ChillMusicScreen(),
+            // ),
+          ),
           HomeMenuTile(
               label: 'Planner',
               icon: Icons.calendar_today,

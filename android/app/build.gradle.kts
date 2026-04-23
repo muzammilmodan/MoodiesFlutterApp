@@ -25,16 +25,20 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.moodiesapp"
+        applicationId = "com.moodies.parentchild"
         minSdk = 23
         targetSdk = 35
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("debug")
+
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
         }
     }
 

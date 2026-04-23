@@ -80,11 +80,11 @@ class _HomeParentScreenState extends State<HomeParentScreen> {
                 style: TextStyle(color: Colors.grey)),
           ),
           const SizedBox(height: 16),
-          HomeMenuTile(
+          /*HomeMenuTile(
             label: 'Daily Check In',
             icon: Icons.check_circle_outline,
             onTap: () => showSnack(context, 'Working in progress.'),
-          ),
+          ),*/
           HomeMenuTile(
             label: "Child's Mood History",
             icon: Icons.bar_chart,

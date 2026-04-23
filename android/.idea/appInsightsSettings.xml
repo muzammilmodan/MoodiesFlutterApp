@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.moodiesapp" />
-                  <option name="mobileSdkAppId" value="1:255328528769:android:032bc935a051ac1442e080" />
-                  <option name="projectId" value="testdemo-2722c" />
-                  <option name="projectNumber" value="255328528769" />
+                  <option name="appId" value="com.moodies.parentchild" />
+                  <option name="mobileSdkAppId" value="1:495081277537:android:5b810aaf6f1ad4f817c220" />
+                  <option name="projectId" value="moodies-ad848" />
+                  <option name="projectNumber" value="495081277537" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
