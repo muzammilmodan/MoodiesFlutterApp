@@ -3,12 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:moodiesapp/screens/bubbles/bubble_screen.dart';
 import 'package:moodiesapp/screens/childs/chill_music_screen.dart';
 import 'package:moodiesapp/screens/childs/planner_list_screen.dart';
 import 'package:moodiesapp/screens/widgets/KidsMenuCard.dart';
 import 'package:moodiesapp/utils/common_snackbar.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../services/firebase_service.dart';
+import '../../utils/navigation_service.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/common_widgets.dart';
 import '../image_colors/open_color_screen.dart';
@@ -70,12 +72,9 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
   Future<void> _logout() async {
     await _svc.logout();
     if (!mounted) return;
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const LoginScreen()), (_) => false);
+    NavigationService().pushAndRemoveAll(const LoginScreen());
   }
 
-  void _nav(Widget s) =>
-      Navigator.push(context, MaterialPageRoute(builder: (_) => s));
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +192,7 @@ Code: $_myCode''',
             emoji: '😊',
             cardColor: const Color(0xFFFFE5EC),
             iconBgColor: const Color(0xFFFFB3C6),
-            onTap: () => _nav(const FeelingTodayScreen()),
+            onTap: () => NavigationService().push(const FeelingTodayScreen()),
           ),
           KidsMenuCard(
             label: 'Color Pages',
@@ -201,7 +200,7 @@ Code: $_myCode''',
             emoji: '🖍️',
             cardColor: const Color(0xFFFFF8E1),
             iconBgColor: const Color(0xFFFFE082),
-            onTap: () => _nav(const ColorPagesScreen()),
+            onTap: () => NavigationService().push(const ColorPagesScreen()),
           ),
           KidsMenuCard(
             label: 'Art Color Pages',
@@ -228,7 +227,7 @@ Code: $_myCode''',
             emoji: '📅',
             cardColor: const Color(0xFFEDE7F6),
             iconBgColor: const Color(0xFFCE93D8),
-            onTap: () => _nav(const PlannerListScreen()),
+            onTap: () => NavigationService().push(const PlannerListScreen()),
           ),
           KidsMenuCard(
             label: 'Create New Character',
@@ -236,7 +235,7 @@ Code: $_myCode''',
             emoji: '🧒',
             cardColor: const Color(0xFFE0F7FA),
             iconBgColor: const Color(0xFF80DEEA),
-            onTap: () => _nav(const CreateCharacterScreen()),
+            onTap: () => NavigationService().push(const CreateCharacterScreen()),
           ),
           KidsMenuCard(
             label: 'Puzzle Game',
@@ -244,7 +243,15 @@ Code: $_myCode''',
             emoji: '🧩',
             cardColor: const Color(0xFFE0EEFF),
             iconBgColor: const Color(0xFFB3D4FF),
-            onTap: () => _nav(const PuzzleScreen()),
+            onTap: () => NavigationService().push(const PuzzleScreen()),
+          ),
+          KidsMenuCard(
+            label: 'Bubble Game',
+            subtitle: 'Challenge your mind',
+            emoji: '🧩',
+            cardColor: const Color(0xFFE0EEFF),
+            iconBgColor: const Color(0xFFB3D4FF),
+            onTap: () => NavigationService().push(BubbleScreen()),
           ),
           KidsMenuCard(
             label: 'Print Weekly Review',
@@ -252,7 +259,7 @@ Code: $_myCode''',
             emoji: '🖨️',
             cardColor: const Color(0xFFF3E5F5),
             iconBgColor: const Color(0xFFCE93D8),
-            onTap: () => _nav(const PrintListScreen()),
+            onTap: () => NavigationService().push(const PrintListScreen()),
           ),
           KidsMenuCard(
             label: 'My Awards 🏆',
@@ -260,7 +267,7 @@ Code: $_myCode''',
             emoji: '🏅',
             cardColor: const Color(0xFFFFF3E0),
             iconBgColor: const Color(0xFFFFCC80),
-            onTap: () => _nav(const AwardsScreen()),
+            onTap: () => NavigationService().push(const AwardsScreen()),
           ),
           KidsMenuCard(
             label: 'Sign Out',

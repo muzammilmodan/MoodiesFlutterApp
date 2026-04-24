@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moodiesapp/utils/common_snackbar.dart';
+import 'package:moodiesapp/utils/navigation_service.dart';
 import '../services/firebase_service.dart';
 import '../utils/app_constants.dart';
 import '../utils/session_manager.dart';
@@ -65,9 +66,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       CommonSnackbar.showSuccessSnackbar(context: context,message:"Account created successfully! 🎉");
 
       if (user.isChild == AppConstants.isChildKids) {
-        _go(const CreateCharacterScreen());
+        NavigationService().pushAndRemoveAll(const CreateCharacterScreen());
       } else {
-        _go(const CodeForKidsScreen());
+        NavigationService().pushAndRemoveAll(const CodeForKidsScreen());
       }
     } on FirebaseAuthException catch (e) {
       _snack(_authError(e.code));
@@ -77,9 +78,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (mounted) setState(() => _loading = false);
     }
   }
-
-  void _go(Widget s) => Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => s), (_) => false);
 
   void _snack(String m) => CommonSnackbar.showErrorSnackbar(context: context,message: m);
 
@@ -176,9 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   const Text('Already have an account? '),
                   GestureDetector(
-                    onTap: () => Navigator.pushReplacement(context,
-                        MaterialPageRoute(
-                            builder: (_) => const LoginScreen())),
+                    onTap: () => NavigationService().pushReplacement(const LoginScreen()),
                     child: const Text('Login',
                         style: TextStyle(
                             color: kAppBg, fontWeight: FontWeight.bold)),

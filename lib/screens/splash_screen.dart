@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:moodiesapp/screens/childs/create_character_screen.dart';
+import 'package:moodiesapp/utils/navigation_service.dart';
 import '../services/firebase_service.dart';
 import '../utils/app_constants.dart';
 import '../utils/session_manager.dart';
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Firebase Auth persists login across app restarts automatically
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
-      _go(const LoginScreen());
+      NavigationService().pushReplacement(const LoginScreen());
       return;
     }
 
@@ -46,18 +47,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
       if (profile.role == AppConstants.roleParent) {
         final codeDone = await SessionManager.getIsSelectCode();
-        _go(codeDone ? const HomeParentScreen() : const CodeForKidsScreen());
+        NavigationService().pushReplacement(codeDone ? const HomeParentScreen() : const CodeForKidsScreen());
       } else {
-        _go(const HomeKidsScreen());
+        NavigationService().pushReplacement(const HomeKidsScreen());
       }
     } catch (_) {
       // If profile fetch fails, send to login
-      _go(const LoginScreen());
+      NavigationService().pushReplacement(const LoginScreen());
     }
   }
 
-  void _go(Widget screen) => Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => screen));
 
   @override
   Widget build(BuildContext context) {

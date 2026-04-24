@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:moodiesapp/utils/common_snackbar.dart';
 import '../../services/firebase_service.dart';
 import '../../utils/app_constants.dart';
+import '../../utils/navigation_service.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/common_widgets.dart';
 import 'home_kids_screen.dart';
@@ -39,9 +40,9 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
       await SessionManager.setSkinColor(_skin);
       if (!mounted) return;
       CommonSnackbar.showSuccessSnackbar(context: context, message:'Character saved! 🎉');
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const HomeKidsScreen()),
-          (_) => false);
+
+      NavigationService().pushAndRemoveAll(HomeKidsScreen());
+
     } catch (e) {
       if (mounted) _snack('Failed to save. Please try again.');
     } finally {

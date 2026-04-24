@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:moodiesapp/utils/navigation_service.dart';
 import '../services/firebase_service.dart';
 import '../utils/app_constants.dart';
 import '../utils/common_snackbar.dart';
@@ -61,9 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
       CommonSnackbar.showSuccessSnackbar(context: context,message:"Login successfully! 🎉");
       if (user.role == AppConstants.roleParent) {
         final done = await SessionManager.getIsSelectCode();
-        _go(done ? const HomeParentScreen() : const CodeForKidsScreen());
+        NavigationService().pushAndRemoveAll(done ? const HomeParentScreen() : const CodeForKidsScreen());
       } else {
-        _go(const HomeKidsScreen());
+        NavigationService().pushAndRemoveAll(const HomeKidsScreen());
       }
     } on FirebaseAuthException catch (e) {
       _snack(_authError(e.code));
@@ -114,8 +115,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   // ── helpers ─────────────────────────────────────────────────────────────
-  void _go(Widget s) => Navigator.of(context)
-      .pushAndRemoveUntil(MaterialPageRoute(builder: (_) => s), (_) => false);
 
   void _snack(String msg) => CommonSnackbar.showErrorSnackbar(context: context,
       message:msg);
@@ -222,10 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const Text("Don't have an account? "),
                   GestureDetector(
-                    onTap: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const SignUpScreen())),
+                    onTap: () =>NavigationService().pushReplacement(const SignUpScreen()),
                     child: const Text('Sign Up',
                         style: TextStyle(
                             color: kAppBg, fontWeight: FontWeight.bold)),

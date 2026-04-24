@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:moodiesapp/screens/login_screen.dart';
 import 'package:moodiesapp/utils/common_snackbar.dart';
 import '../../services/firebase_service.dart';
+import '../../utils/navigation_service.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/common_widgets.dart';
 import 'home_parent_screen.dart';
@@ -41,7 +42,7 @@ class _CodeForKidsScreenState extends State<CodeForKidsScreen> {
       CommonSnackbar.showErrorSnackbar(context: context,
           message:("Connected to ${child.name}'s account! 🎉"));
 
-      _go(const HomeParentScreen());
+      NavigationService().pushAndRemoveAll(const HomeParentScreen());
     } catch (e) {
       if (mounted) _snack('Something went wrong. Please try again.');
     } finally {
@@ -52,13 +53,9 @@ class _CodeForKidsScreenState extends State<CodeForKidsScreen> {
   Future<void> _logout() async {
     await _svc.logout();
     if (!mounted) return;
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
-            (_) => false);
+    NavigationService().pushAndRemoveAll( const LoginScreen());
   }
 
-  void _go(Widget s) => Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => s), (_) => false);
 
   void _snack(String m) => CommonSnackbar.showErrorSnackbar(context: context, message:m);
 

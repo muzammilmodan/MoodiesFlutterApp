@@ -6,6 +6,7 @@ import 'package:moodiesapp/screens/childs/parents_mood_list_screen.dart';
 import 'package:moodiesapp/screens/childs/planner_list_screen.dart';
 import 'package:moodiesapp/screens/parent/parent_planner_list_screen.dart';
 import '../../services/firebase_service.dart';
+import '../../utils/navigation_service.dart';
 import '../../widgets/common_widgets.dart';
 import '../login_screen.dart';
 import '../print_list_screen.dart';
@@ -41,13 +42,8 @@ class _HomeParentScreenState extends State<HomeParentScreen> {
   Future<void> _logout() async {
     await _svc.logout();
     if (!mounted) return;
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
-        (_) => false);
+    NavigationService().pushAndRemoveAll( const LoginScreen());
   }
-
-  void _nav(Widget s) =>
-      Navigator.push(context, MaterialPageRoute(builder: (_) => s));
 
   @override
   Widget build(BuildContext context) {
@@ -88,17 +84,17 @@ class _HomeParentScreenState extends State<HomeParentScreen> {
           HomeMenuTile(
             label: "Child's Mood History",
             icon: Icons.bar_chart,
-            onTap: () => _nav(const ParentsMoodListScreen()),
+            onTap: () => NavigationService().push(const ParentsMoodListScreen()),
           ),
           HomeMenuTile(
             label: 'Planner',
             icon: Icons.calendar_today,
-            onTap: () => _nav(const ParentPlannerListScreen()),
+            onTap: () => NavigationService().push(const ParentPlannerListScreen()),
           ),
           HomeMenuTile(
             label: 'Print Weekly Review',
             icon: Icons.print,
-            onTap: () => _nav(const PrintListScreen()),
+            onTap: () => NavigationService().push(const PrintListScreen()),
           ),
           HomeMenuTile(
             label: 'Sign Out',

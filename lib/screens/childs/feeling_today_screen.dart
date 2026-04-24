@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:moodiesapp/utils/common_snackbar.dart';
 import '../../services/firebase_service.dart';
 import '../../utils/app_constants.dart';
+import '../../utils/navigation_service.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/common_widgets.dart';
 import 'home_kids_screen.dart';
@@ -76,9 +77,7 @@ class _FeelingTodayScreenState extends State<FeelingTodayScreen> {
       await SessionManager.setAvatarTitle(mood);
       if (!mounted) return;
       CommonSnackbar.showSuccessSnackbar(context: context, message: 'Mood saved! 🎉');
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const HomeKidsScreen()),
-          (_) => false);
+      NavigationService().pushAndRemoveAll(const HomeKidsScreen());
     } catch (e) {
       if (mounted)  CommonSnackbar.showErrorSnackbar(context: context, message:'Failed to save mood. Try again.');
     } finally {

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodiesapp/screens/parent/parents_kids_mood_tracker_list_screen.dart';
 import 'package:moodiesapp/utils/common_snackbar.dart';
+import 'package:moodiesapp/utils/navigation_service.dart';
 import '../../services/firebase_service.dart';
 import '../../models/models.dart';
 import '../../widgets/common_widgets.dart';
@@ -73,9 +74,8 @@ class _ParentPlannerListScreenState extends State<ParentPlannerListScreen> {
     }
   }
 
-  void _navTracker(String tab) => Navigator.push(context,
-      MaterialPageRoute(builder: (_) => ParentsKidsMoodTrackerListScreen(tab: tab,
-          selectDate: _focused)));
+  void _navTracker(String tab) => NavigationService().push(ParentsKidsMoodTrackerListScreen(tab: tab,
+          selectDate: _focused));
 
   @override
   Widget build(BuildContext context) => Scaffold(

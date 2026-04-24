@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:moodiesapp/utils/common_snackbar.dart';
+import 'package:moodiesapp/utils/navigation_service.dart';
 import '../../services/firebase_service.dart';
 import '../../models/models.dart';
 import '../../widgets/common_widgets.dart';
@@ -68,8 +69,7 @@ class _PlannerListScreenState extends State<PlannerListScreen> {
     }
   }
 
-  void _navTracker(String tab) => Navigator.push(context,
-      MaterialPageRoute(builder: (_) => KidsMoodTrackerListScreen(tab: tab)));
+  void _navTracker(String tab) => NavigationService().push(KidsMoodTrackerListScreen(tab: tab));
 
   @override
   Widget build(BuildContext context) => Scaffold(
