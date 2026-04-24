@@ -296,7 +296,14 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
                       child: CircularProgressIndicator(color: kAppBg))
                   : AppButton(
                 label: 'Save My Character 🎉',
-                onTap: () => (_skin.isEmpty) ? null : _save,
+                onTap: () {
+                  if(_skin.isEmpty) {
+                   CommonSnackbar.showErrorSnackbar(context: context, message:
+                   "Please select at-least one skin tone.");
+                  }else{
+                    _save();
+                  }
+                },
               )),
         ]),
       ],

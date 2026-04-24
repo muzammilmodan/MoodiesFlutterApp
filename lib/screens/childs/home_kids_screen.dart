@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:moodiesapp/screens/childs/chill_music_screen.dart';
 import 'package:moodiesapp/screens/childs/planner_list_screen.dart';
+import 'package:moodiesapp/screens/widgets/KidsMenuCard.dart';
 import 'package:moodiesapp/utils/common_snackbar.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../services/firebase_service.dart';
@@ -104,6 +105,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
+                      fontFamily: 'ChocoCooky',
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -120,6 +122,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
                     Text(
                       _myCode,
                       style: const TextStyle(
+                        fontFamily: 'ChocoCooky',
                         color: Colors.black,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -182,57 +185,91 @@ Code: $_myCode''',
                 style: TextStyle(color: Colors.grey)),
           ),
           const SizedBox(height: 16),
-          HomeMenuTile(
-              label: 'Daily Check In — How do you feel?',
-              icon: Icons.mood,
-              onTap: () => _nav(const FeelingTodayScreen())),
-          HomeMenuTile(
-              label: 'Color Pages',
-              icon: Icons.palette,
-              onTap: () => _nav(const ColorPagesScreen())),
-          HomeMenuTile(
-              label: 'Art Color Pages',
-              icon: Icons.art_track,
-              onTap: () {
-                OpenColorScreen.openNativeScreen();
-              }),
-          HomeMenuTile(
-            label: 'Chill Music',
-            icon: Icons.music_note,
-            onTap: () {
-              CommonSnackbar.showInfoSnackbar(
-                context: context,
-                message: "Chill Music Working on It.",
-              );
-            }
-            // onTap: () => _nav(
-            //   const ChillMusicScreen(),
-            // ),
+
+          // ── colorful kids menu cards (CHANGED) ───────────────────────
+          KidsMenuCard(
+            label: 'Daily Check In',
+            subtitle: 'How do you feel?',
+            emoji: '😊',
+            cardColor: const Color(0xFFFFE5EC),
+            iconBgColor: const Color(0xFFFFB3C6),
+            onTap: () => _nav(const FeelingTodayScreen()),
           ),
-          HomeMenuTile(
-              label: 'Planner',
-              icon: Icons.calendar_today,
-              onTap: () => _nav(const PlannerListScreen())),
-          HomeMenuTile(
-              label: 'Create New Character',
-              icon: Icons.face,
-              onTap: () => _nav(const CreateCharacterScreen())),
-          HomeMenuTile(
-              label: 'Puzzle Game',
-              icon: Icons.extension,
-              onTap: () => _nav(const PuzzleScreen())),
-          HomeMenuTile(
-              label: 'Print Weekly Review',
-              icon: Icons.print,
-              onTap: () => _nav(const PrintListScreen())),
-          HomeMenuTile(
-              label: 'My Awards 🏆',
-              icon: Icons.emoji_events,
-              onTap: () => _nav(const AwardsScreen())),
-          HomeMenuTile(
-              label: 'Sign Out',
-              icon: Icons.exit_to_app,
-              onTap: () => showLogoutDialog(context, _logout)),
+          KidsMenuCard(
+            label: 'Color Pages',
+            subtitle: 'Express yourself',
+            emoji: '🖍️',
+            cardColor: const Color(0xFFFFF8E1),
+            iconBgColor: const Color(0xFFFFE082),
+            onTap: () => _nav(const ColorPagesScreen()),
+          ),
+          KidsMenuCard(
+            label: 'Art Color Pages',
+            subtitle: 'Create beautiful art',
+            emoji: '🎨',
+            cardColor: const Color(0xFFE8F5E9),
+            iconBgColor: const Color(0xFFA5D6A7),
+            onTap: () => OpenColorScreen.openNativeScreen(),
+          ),
+          KidsMenuCard(
+            label: 'Chill Music',
+            subtitle: 'Feel the rhythm',
+            emoji: '🎵',
+            cardColor: const Color(0xFFFCE4EC),
+            iconBgColor: const Color(0xFFF48FB1),
+            onTap: () => CommonSnackbar.showInfoSnackbar(
+              context: context,
+              message: 'Chill Music Working on It.',
+            ),
+          ),
+          KidsMenuCard(
+            label: 'Planner',
+            subtitle: 'Organise your day',
+            emoji: '📅',
+            cardColor: const Color(0xFFEDE7F6),
+            iconBgColor: const Color(0xFFCE93D8),
+            onTap: () => _nav(const PlannerListScreen()),
+          ),
+          KidsMenuCard(
+            label: 'Create New Character',
+            subtitle: 'Design your avatar',
+            emoji: '🧒',
+            cardColor: const Color(0xFFE0F7FA),
+            iconBgColor: const Color(0xFF80DEEA),
+            onTap: () => _nav(const CreateCharacterScreen()),
+          ),
+          KidsMenuCard(
+            label: 'Puzzle Game',
+            subtitle: 'Challenge your mind',
+            emoji: '🧩',
+            cardColor: const Color(0xFFE0EEFF),
+            iconBgColor: const Color(0xFFB3D4FF),
+            onTap: () => _nav(const PuzzleScreen()),
+          ),
+          KidsMenuCard(
+            label: 'Print Weekly Review',
+            subtitle: 'Show your progress',
+            emoji: '🖨️',
+            cardColor: const Color(0xFFF3E5F5),
+            iconBgColor: const Color(0xFFCE93D8),
+            onTap: () => _nav(const PrintListScreen()),
+          ),
+          KidsMenuCard(
+            label: 'My Awards 🏆',
+            subtitle: 'See what you\'ve earned',
+            emoji: '🏅',
+            cardColor: const Color(0xFFFFF3E0),
+            iconBgColor: const Color(0xFFFFCC80),
+            onTap: () => _nav(const AwardsScreen()),
+          ),
+          KidsMenuCard(
+            label: 'Sign Out',
+            subtitle: 'See you next time!',
+            emoji: '👋',
+            cardColor: const Color(0xFFEEEEEE),
+            iconBgColor: const Color(0xFFBDBDBD),
+            onTap: () => showLogoutDialog(context, _logout),
+          ),
         ],
       ),
     );
