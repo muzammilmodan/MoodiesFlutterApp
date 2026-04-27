@@ -61,10 +61,10 @@ class AppImages {
   static const String icAbcHomeBG =   "assets/abcgames/new_gif/main_home1.png";
   static const String icAbcMenuBG=  "assets/abcgames/new_gif/setting.png";
 
-  static const String icAbcMenuCountWithPhonic=  "assets/abcgames/images/setting_button/auto_play.png";
-  static const String icAbcMenuDragMatchNumberBlocks=  "assets/abcgames/images/setting_button/drag.png";
-  static const String icAbcMenuPopBubblesCount=  "assets/abcgames/images/setting_button/word.png";
-  static const String icAbcMenuTrackLearnNo=  "assets/abcgames/images/setting_button/tracing.png";
-  static const String icAbcMenuNumberCountPuzzle=  "assets/abcgames/images/setting_button/puzzle.png";
+  static const String icAbcMenuCountWithPhonic=  "assets/abcgames/images/setting_button/icn_numbers_100.png";
+  static const String icAbcMenuDragMatchNumberBlocks=  "assets/abcgames/images/setting_button/icn_number_blocks.png";
+  static const String icAbcMenuPopBubblesCount=  "assets/abcgames/images/setting_button/icn_bubble.png";
+  static const String icAbcMenuTrackLearnNo=  "assets/abcgames/images/setting_button/icn_learn_number.png";
+  static const String icAbcMenuNumberCountPuzzle=  "assets/abcgames/images/setting_button/icn_puzzle.png";
 
 }

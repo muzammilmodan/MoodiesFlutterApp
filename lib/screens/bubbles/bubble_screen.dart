@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 import '../../utils/navigation_service.dart';
+import '../childs/home_kids_screen.dart';
 import 'code_files.dart';
 
 class BubbleScreen extends StatefulWidget {
@@ -115,130 +116,134 @@ class _BubbleScreenState extends State<BubbleScreen> {
   Widget build(BuildContext context) {
     print('running');
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pop My Bubble!'),
-         actions:  <Widget>[
-          GestureDetector(
-            onTap: (){
-              Navigator.pop(context);
-            }, child: const Icon(Icons.arrow_back_ios_new_outlined,color: Colors.black,))
-       ],
-      ),
-      body: Stack(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            child: Column(
-              children: <Widget>[
-                FutureBuilder<void>(
-                    future: loadLevelFuture,
-                    builder: (context, snapshot) {
-                      return Text(
-                        'Level ${level != null ? level.toString() : ''}',
-                        style: const TextStyle(fontSize: 22),
-                      );
-                    }),
-//                Text(
-//                  'Level ' + (level != null ? level.toString() : ''),
-//                  style: TextStyle(fontSize: 22),
-//                ),
-                Text(
-                  'Pop the ${_getRule(rule ?? "", ruleColorName ?? "", ruleNumber ?? 0)}',
-                  style: TextStyle(fontFamily: 'ChocoCooky', fontSize: 22),
-                ),
-                GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: bubbles.length,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-                  itemBuilder: (context, index) {
-                    Color randColor = colours.values
-                        .elementAt(bubbles[index].colorIndex ?? 0)
-                        .color;
-                    String colorName =
-                        colours.keys.elementAt(bubbles[index].colorIndex ?? 0);
-                    return bubbles[index].isActive
-                        ? Bubble(
-                            rule: rule ?? "",
-                            ruleColour: colours[ruleColorName]?.color,
-                            colour: randColor,
-                            // colorName used as key from colours map to manipulate colour count after a move
-                            colorName: colorName,
-                            ruleNumber: rule!.contains('N') ? ruleNumber : null,
-                            number: rule!.contains('N') ? index + 1 : null,
-                            parentAction: _updateMove,
-                            index: index,
-                          )
-                        : Container();
-                  },
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 6,
-                  ),
-                ),
-              ],
-            ),
+    return PopScope(
+      canPop: false,                                    // intercept all back events
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop)  NavigationService().pushAndRemoveAll(HomeKidsScreen());       // cleanly finish the screen
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Pop My Bubble!'),
+          leading: IconButton(                          // explicit back button
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            onPressed: () =>  NavigationService().pushAndRemoveAll(HomeKidsScreen()),
           ),
-          Positioned(
-            bottom: 0,
-            child: InkWell(
-              onTap: () {
-                if (ruleCount == 0 && popped == 0)
-                  _gameWon();
-                else
-                  _gameOver();
-              },
-              child: Ink(
-                height: kBottomNavigationBarHeight,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.lightBlueAccent,
-                child: Center(
-                  child: Text(
-                    'Don\'t Fool Me!',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Visibility(
-            visible: showOverlay,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade200.withOpacity(0.5)),
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Visibility(
-              visible: showOverlay,
+        ),
+        body: Stack(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
+                  FutureBuilder<void>(
+                      future: loadLevelFuture,
+                      builder: (context, snapshot) {
+                        return Text(
+                          'Level ${level != null ? level.toString() : ''}',
+                          style: const TextStyle(fontSize: 22),
+                        );
+                      }),
+      //                Text(
+      //                  'Level ' + (level != null ? level.toString() : ''),
+      //                  style: TextStyle(fontSize: 22),
+      //                ),
                   Text(
-                    gameOver ? 'GAME OVER' : 'LEVEL UP!',
-                    style: const TextStyle(fontSize: 40),
+                    'Pop the ${_getRule(rule ?? "", ruleColorName ?? "", ruleNumber ?? 0)}',
+                    style: TextStyle(fontFamily: 'ChocoCooky', fontSize: 22),
                   ),
-                  FloatingActionButton.extended(
-                    label: Text(gameOver ? 'Play Again' : 'Next Level'),
-                    onPressed: () {
-                      print('rebuilding..');
-                      NavigationService().push(BubbleScreen());
+                  GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: bubbles.length,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+                    itemBuilder: (context, index) {
+                      Color randColor = colours.values
+                          .elementAt(bubbles[index].colorIndex ?? 0)
+                          .color;
+                      String colorName =
+                          colours.keys.elementAt(bubbles[index].colorIndex ?? 0);
+                      return bubbles[index].isActive
+                          ? Bubble(
+                              rule: rule ?? "",
+                              ruleColour: colours[ruleColorName]?.color,
+                              colour: randColor,
+                              // colorName used as key from colours map to manipulate colour count after a move
+                              colorName: colorName,
+                              ruleNumber: rule!.contains('N') ? ruleNumber : null,
+                              number: rule!.contains('N') ? index + 1 : null,
+                              parentAction: _updateMove,
+                              index: index,
+                            )
+                          : Container();
                     },
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 6,
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 0,
+              child: InkWell(
+                onTap: () {
+                  if (ruleCount == 0 && popped == 0)
+                    _gameWon();
+                  else
+                    _gameOver();
+                },
+                child: Ink(
+                  height: kBottomNavigationBarHeight,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.lightBlueAccent,
+                  child: Center(
+                    child: Text(
+                      'Don\'t Fool Me!',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: showOverlay,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200.withOpacity(0.5)),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Visibility(
+                visible: showOverlay,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      gameOver ? 'GAME OVER' : 'LEVEL UP!',
+                      style: const TextStyle(fontSize: 40),
+                    ),
+                    FloatingActionButton.extended(
+                      label: Text(gameOver ? 'Play Again' : 'Next Level'),
+                      onPressed: () {
+                        print('rebuilding..');
+                        NavigationService().push(BubbleScreen());
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

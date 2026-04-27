@@ -42,4 +42,5 @@ class FontName {
   static const SuezOneRegular = "SuezOneRegular";
   static const grobold = "GROBOLD";
   static const SuravaramRegular = "Suravaram";
+  static const ChocoCooky =  'ChocoCooky';
 }

@@ -106,59 +106,94 @@ class _FeelingTodayScreenState extends State<FeelingTodayScreen> {
                 final mood = AppConstants.moods[i];
                 final isSel = _selected == i;
                 return GestureDetector(
-                  onTap: () async {
-                    setState(() => _selected = i);
-                    await SessionManager.setAvatarTitle(mood);
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 180),
-                    decoration: BoxDecoration(
-                      color: isSel
-                          ? kAppBg.withOpacity(0.15)
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(
-                          color: isSel ? kAppBg : Colors.grey.shade200,
-                          width: isSel ? 2.5 : 1),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
-                            blurRadius: 6)
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(6),
-                            child: Image.asset(
-                              _imgPath(mood),
-                              fit: BoxFit.contain,
-                              errorBuilder: (_, __, ___) => Icon(
-                                Icons.sentiment_satisfied_alt,
-                                size: 46,
-                                color: isSel ? kAppBg : Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: Text(
-                            mood,
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: isSel
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: isSel ? kAppBg : Colors.black87,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                onTap: () async {
+                setState(() => _selected = i);
+                await SessionManager.setAvatarTitle(mood);
+                },
+                child: AnimatedScale(
+                scale: isSel ? 1.08 : 1.0,
+                duration: const Duration(milliseconds: 200),
+                child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                decoration: BoxDecoration(
+                color: isSel
+                ? kAppBg.withOpacity(0.15)
+                    : Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                color: isSel ? kAppBg : Colors.grey.shade200,
+                width: isSel ? 3 : 1,
+                ),
+                boxShadow: [
+                if (isSel)
+                BoxShadow(
+                color: kAppBg.withOpacity(0.4),
+                blurRadius: 12,
+                spreadRadius: 2,
+                )
+                else
+                BoxShadow(
+                color: Colors.black.withOpacity(0.04),
+                blurRadius: 6,
+                ),
+                ],
+                ),
+                child: Stack(
+                children: [
+                Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                Expanded(
+                child: Padding(
+                padding: const EdgeInsets.all(6),
+                child: Image.asset(
+                _imgPath(mood),
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) => Icon(
+                Icons.sentiment_satisfied_alt,
+                size: 46,
+                color: isSel ? kAppBg : Colors.grey,
+                ),
+                ),
+                ),
+                ),
+                Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                mood,
+                style: TextStyle(
+                fontSize: 11,
+                fontWeight:
+                isSel ? FontWeight.bold : FontWeight.normal,
+                color: isSel ? kAppBg : Colors.black87,
+                ),
+                ),
+                ),
+                ],
+                ),
+
+                /// ✅ SELECTED CHECK ICON
+                if (isSel)
+                Positioned(
+                top: 6,
+                right: 6,
+                child: Container(
+                decoration: BoxDecoration(
+                color: kAppBg,
+                shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(4),
+                child: const Icon(
+                Icons.check,
+                color: Colors.white,
+                size: 14,
+                ),
+                ),
+                ),
+                ],
+                ),
+                ),
+                ),
                 );
               },
             ),

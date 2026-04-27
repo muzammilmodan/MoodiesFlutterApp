@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:moodiesapp/screens/abc_game/utils/app_theme.dart';
 import 'package:moodiesapp/screens/abc_game/utils/audio_manager.dart';
 
 import '../../utils/app_constants.dart';
@@ -39,6 +40,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
       key = UniqueKey();
     });
   }
+
   void _manageAudio() {
     setState(() {
       if (widget.audio== true) {
@@ -49,6 +51,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
       }
     });
   }
+
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -70,6 +73,256 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
     }
   }
 
+  final List<Map<String, dynamic>> items = [
+    {
+      "title": "Count 1 to 100\nWith Phonics",
+      "icon": AppImages.icAbcMenuCountWithPhonic,
+      "color": Color(0xFFA8E6A3),
+      "ids": 0,
+    },
+    {
+      "title": "Drag & Match\nNumber Blocks",
+      "icon": AppImages.icAbcMenuDragMatchNumberBlocks,
+      "color": Color(0xFFAED9F5),
+      "ids": 1,
+    },
+    {
+      "title": "Pop Bubbles &\nLearn To Count",
+      "icon": AppImages.icAbcMenuPopBubblesCount,
+      "color": Color(0xFFFFF3A6),
+      "ids": 2,
+    },
+    {
+      "title": "Trace & Learn\nNumbers",
+      "icon": AppImages.icAbcMenuTrackLearnNo,
+      "color": Color(0xFFD8C4F5),
+      "ids": 3,
+    },
+    {
+      "title": "Number Count\nJigsaw Puzzle",
+      "icon": AppImages.icAbcMenuNumberCountPuzzle,
+      "color": Color(0xFFFFC7C7),
+      "ids": 4,
+    }
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterTop,
+      floatingActionButton: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          FloatingActionButton(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            child: Image.asset(AppImages.icAbcBack, fit: BoxFit.fill),
+            onPressed: () {
+              setState(() {
+//                Navigator.pop(context);
+
+                NavigationService().pushAndRemoveAll(const HomeKidsScreen());
+                // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
+                //   return MySplashPage();
+                // },), (route) => false);
+              });
+            },
+          ),
+
+          FloatingActionButton(
+            elevation: 0,
+            heroTag: "1",
+            backgroundColor: Colors.transparent,
+            child: Image.asset(
+              AppImages.icAbcClose,
+              height: MediaQuery.of(context).size.height * 0.06,
+            ),
+            onPressed: () {
+              showQuiteDialog(context);
+            },
+          )
+
+          // FloatingActionButton(
+          //   elevation: 0,
+          //   heroTag: "1",
+          //   backgroundColor: Colors.transparent,
+          //   child: Image.asset("assets/abcgames/images/new_button/close.png",
+          //     height: MediaQuery.of(context).size.height*0.06,),
+          //   onPressed: () {
+          //     setState(() {
+          //       SystemNavigator.pop();
+          //     });
+          //   },
+          // ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          /// 🌤 Background Image
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages.icAbcHomeBG),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          SafeArea(
+            child: Column(
+              children: [
+
+                /// 🔝 Top Bar
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _circleButton(Icons.arrow_back),
+                      _circleButton(Icons.settings),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                /// 🧠 Title
+                const Text(
+                  "Learn Numbers",
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                    fontFamily: FontName.Chiki,
+                  ),
+                ),
+
+                const SizedBox(height: 5),
+
+                const Text(
+                  "Fun • Play • Learn",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: FontName.SuezOneRegular,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                /// 🟦 GRID
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: GridView.builder(
+                      itemCount: items.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 15,
+                        mainAxisSpacing: 15,
+                        childAspectRatio: 1,
+                      ),
+                      itemBuilder: (context, index) {
+                        final item = items[index];
+                        return _gridItem(item);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 🔘 Circle Button
+  Widget _circleButton(IconData icon) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 6),
+        ],
+      ),
+      child: Icon(icon, color: Colors.orange),
+    );
+  }
+
+  /// 🧩 Grid Item
+  Widget _gridItem(Map item) {
+    return GestureDetector(
+      onTap: (){
+        if(item["ids"] == 0){
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return MiddleScreen(
+              text: "",
+              index: 0,
+              audio: widget.audio,
+            );
+          },));
+        }if(item["ids"] == 1){
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return DragMatchNumberBlockScreen(letterName: "a",audio: widget.audio,index: 1);
+          },));
+        }if(item["ids"] == 2){
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) {
+            return PopBubblesScreen(index: 0,
+              audio: widget.audio,
+              letterName: "a",);
+          },));
+        }if(item["ids"] == 3){
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) {
+            return TraceLearnScreen(audio: widget.audio,);
+          },));
+        }if(item["ids"] == 4){
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) {
+            return JigsawPuzzleScreen(audio: widget.audio,);
+            // return MyHomePage();
+          },));
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: item["color"],
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6,
+              offset: Offset(2, 3),
+            )
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(item["icon"], height: 60),
+            const  SizedBox(height: 10),
+            Text(
+              item["title"],
+              textAlign: TextAlign.center,
+              style:   TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                fontFamily: FontName.ChocoCooky,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+/*
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -158,7 +411,8 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
                             );
                           },));
                         },
-                      ),InkWell(
+                      ),
+                      InkWell(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) {
                             return DragMatchNumberBlockScreen(letterName: "a",audio: widget.audio,index: 1);
@@ -214,6 +468,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
       ),
     );
   }
+*/
 
   Future<void> showQuiteDialog(
       BuildContext context) async {

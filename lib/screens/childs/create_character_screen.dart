@@ -227,37 +227,6 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
     return flex ? Expanded(child: card) : card;
   }
 
-  Widget _card({
-    required String label,
-    required bool selected,
-    required VoidCallback onTap,
-    Widget? child,
-  }) =>
-      GestureDetector(
-        onTap: onTap,
-        child: Container(
-          margin: const EdgeInsets.all(8),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: selected ? kAppBg.withOpacity(0.12) : Colors.white,
-            border: Border.all(
-                color: selected ? kAppBg : Colors.grey.shade300, width: 2),
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (child != null) child,
-              const SizedBox(height: 6),
-              Text(label,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: selected ? kAppBg : Colors.black87)),
-            ],
-          ),
-        ),
-      );
-
   // ── step: gender ─────────────────────────────────────────────────────────
   Widget _genderStep() => Column(
     mainAxisAlignment: MainAxisAlignment.center,
