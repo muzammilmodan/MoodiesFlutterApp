@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:moodiesapp/screens/abc_game/utils/audio_manager.dart';
 
+import '../../utils/app_constants.dart';
 import '../../utils/navigation_service.dart';
 import '../childs/home_kids_screen.dart';
 import 'all_menu_screen/drag_match_number_block_screen.dart';
@@ -82,8 +83,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
           FloatingActionButton(
             elevation: 0,
             backgroundColor: Colors.transparent,
-            child: Image.asset("assets/abcgames/images/new_button/back.png"
-                ,fit: BoxFit.fill),
+            child: Image.asset(AppImages.icAbcBack, fit: BoxFit.fill),
             onPressed: () {
               setState(() {
 //                Navigator.pop(context);
@@ -101,7 +101,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
             heroTag: "1",
             backgroundColor: Colors.transparent,
             child: Image.asset(
-              "assets/abcgames/images/new_button/close.png",
+              AppImages.icAbcClose,
               height: MediaQuery.of(context).size.height * 0.06,
             ),
             onPressed: () {
@@ -127,7 +127,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              "assets/abcgames/new_gif/main_home1.png",
+              AppImages.icAbcHomeBG,
             ),
             fit: BoxFit.fill,
           ),
@@ -137,7 +137,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
             padding: EdgeInsets.only(top: screenHeight*0.17,bottom: screenHeight*0.08),
             child: Container(
               decoration: const BoxDecoration(image:
-              DecorationImage(image: AssetImage("assets/abcgames/new_gif/setting.png"),fit: BoxFit.fill)),
+              DecorationImage(image: AssetImage(AppImages.icAbcMenuBG),fit: BoxFit.fill)),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth*0.20,vertical: screenHeight*0.07),
                 child: SingleChildScrollView(
@@ -146,7 +146,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
                       SizedBox(height: screenHeight*0.05,),
                       InkWell(
                         child: Image.asset(
-                          "assets/abcgames/images/setting_button/auto_play.png",
+                          AppImages.icAbcMenuCountWithPhonic,
                         ),
                         onTap: () {
                           // player.pause();
@@ -165,7 +165,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
                           },));
                         },
                         child: Image.asset(
-                          "assets/abcgames/images/setting_button/drag.png",
+                          AppImages.icAbcMenuDragMatchNumberBlocks,
                         ),
                       ),
                       InkWell(
@@ -178,7 +178,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
                             },));
                         },
                         child: Image.asset(
-                          "assets/abcgames/images/setting_button/word.png",
+                          AppImages.icAbcMenuPopBubblesCount,
                         ),
                       ),
                       InkWell(
@@ -189,7 +189,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
                             },));
                           },
                         child: Image.asset(
-                          "assets/abcgames/images/setting_button/tracing.png",
+                          AppImages.icAbcMenuTrackLearnNo,
                         ),
                       ),
                       InkWell(
@@ -201,7 +201,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
                           },));
                         },
                         child: Image.asset(
-                          "assets/abcgames/images/setting_button/puzzle.png",
+                          AppImages.icAbcMenuNumberCountPuzzle,
                         ),
                       ),
                     ],
