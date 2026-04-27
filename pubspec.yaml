@@ -23,7 +23,7 @@ dependencies:
 
   awesome_snackbar_content: ^0.1.6
 
-  lottie: ^3.3.1
+  lottie:
   google_fonts: ^6.3.2
 
   hive_flutter: ^1.1.0
@@ -32,6 +32,19 @@ dependencies:
 
   bloc: ^9.2.0
 
+#  ABC Games
+  animate_do: ^3.0.2
+  url_launcher: ^6.2.5
+
+  flutter_swiper_view: ^1.1.8
+  auto_size_text: ^3.0.0
+  flutter_drawing_board: ^0.5.0
+  flutter_colorpicker: ^1.1.0
+  flutter_svg: ^2.2.0
+  floodfill_image: ^0.0.8
+  flutter_launcher_icons:
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -39,9 +52,21 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   assets:
     - assets/images/
+    - assets/abcgames/
     - assets/fonts/
+    - assets/abcgames/app_icons/
+    - assets/abcgames/new_gif/
+    - assets/abcgames/images/new_button/
+    - assets/abcgames/images/setting_button/
+    - assets/abcgames/images/word_img/
+    - assets/abcgames/words/
+    - assets/abcgames/audio/
+    - assets/abcgames/game/
+    - assets/abcgames/draw_img/
+
   fonts:
     - family: ChocoCooky
       fonts:
@@ -49,3 +74,15 @@ flutter:
     - family: NanumPen
       fonts:
         - asset: assets/fonts/nanum_pen_script_regular.ttf
+    - family: Chiki
+      fonts:
+        - asset: fonts/Chiki.ttf
+    - family: SuezOneRegular
+      fonts:
+        - asset: fonts/SuezOne-Regular.ttf
+    - family: GROBOLD
+      fonts:
+        - asset: fonts/GROBOLD.ttf
+    - family: Suravaram
+      fonts:
+        - asset: fonts/Suravaram-Regular.ttf

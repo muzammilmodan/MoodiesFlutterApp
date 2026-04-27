@@ -289,7 +289,7 @@ Future<void> showLogoutDialog(
             Container(
               width: 64,
               height: 64,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color(0xFFD5D0F8), Color(0xFFB0A8F0)],
                   begin: Alignment.topLeft,

@@ -136,6 +136,97 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
 
 
   // ── option card ──────────────────────────────────────────────────────────
+  // ── UNIFIED selection card ───────────────────────────────────────────────
+  /// Works for both the wide gender cards (pass [flex] = true)
+  /// and the Wrap-based hair / skin tiles (pass [flex] = false).
+  Widget _selectionCard({
+    required String  label,
+    required bool    selected,
+    required VoidCallback onTap,
+    Widget?          child,
+    bool             flex      = false,   // wrap in Expanded for gender row
+    double           tileSize  = 100,     // fixed width when flex = false
+  }) {
+    final card = GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOut,
+        width:  flex ? null : tileSize,
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(12),
+        // ── overlap / lift effect ──────────────────────────────────────
+        transform: Matrix4.identity()
+          ..translate(0.0, selected ? -10.0 : 0.0)
+          ..scale(selected ? 1.05 : 1.0),
+        transformAlignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: selected ? kAppBg : Colors.grey.shade300,
+            width: 2,
+          ),
+          boxShadow: selected
+              ? [
+            BoxShadow(
+              color: kAppBg.withOpacity(0.3),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
+            )
+          ]
+              : [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            )
+          ],
+        ),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Opacity(
+                  opacity: selected ? 1.0 : 0.65,
+                  child: child ?? const SizedBox(),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize:   16,
+                    fontWeight: FontWeight.bold,
+                    color: selected ? kAppBg : Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+            // ── check-badge (appears top-right when selected) ──────────
+            if (selected)
+              Positioned(
+                top: -6,
+                right: -6,
+                child: Container(
+                  width: 22, height: 22,
+                  decoration: BoxDecoration(
+                    color: kAppBg,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                  child: const Icon(Icons.check, size: 13, color: Colors.white),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+
+    return flex ? Expanded(child: card) : card;
+  }
+
   Widget _card({
     required String label,
     required bool selected,
@@ -220,7 +311,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
         Wrap(
           alignment: WrapAlignment.center,
           children: options.entries
-              .map((e) => _card(
+              .map((e) => _selectionCard(
                     label: e.key,
                     selected: _hair == e.value,
                     onTap: () {
@@ -272,7 +363,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
         Wrap(
           alignment: WrapAlignment.center,
           children: options.entries
-              .map((e) => _card(
+              .map((e) => _selectionCard(
                     label: e.key,
                     selected: _skin == e.value,
                     onTap: () {

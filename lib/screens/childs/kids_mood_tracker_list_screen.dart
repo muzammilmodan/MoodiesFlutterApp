@@ -59,7 +59,7 @@ class _KidsMoodTrackerListScreenState
         ? '${g == 'boy' ? 'tan_wz_black' : 'tan_wz_black_hair'}'
         : _hair;
 
-    return 'assets/images/${m}_${g}_$hair.jpg';
+    return 'assets/abcgames/images/${m}_${g}_$hair.jpg';
   }
 
   Future<void> _fetch() async {

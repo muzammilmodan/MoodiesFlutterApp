@@ -1,4 +1,4 @@
-// lib/screens/home_kids_screen.dart
+
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +13,7 @@ import '../../services/firebase_service.dart';
 import '../../utils/navigation_service.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/common_widgets.dart';
+import '../abc_game/abc_game_screen.dart';
 import '../image_colors/open_color_screen.dart';
 import '../login_screen.dart';
 import 'feeling_today_screen.dart';
@@ -211,17 +212,6 @@ Code: $_myCode''',
             onTap: () => OpenColorScreen.openNativeScreen(),
           ),
           KidsMenuCard(
-            label: 'Chill Music',
-            subtitle: 'Feel the rhythm',
-            emoji: '🎵',
-            cardColor: const Color(0xFFFCE4EC),
-            iconBgColor: const Color(0xFFF48FB1),
-            onTap: () => CommonSnackbar.showInfoSnackbar(
-              context: context,
-              message: 'Chill Music Working on It.',
-            ),
-          ),
-          KidsMenuCard(
             label: 'Planner',
             subtitle: 'Organise your day',
             emoji: '📅',
@@ -246,11 +236,19 @@ Code: $_myCode''',
             onTap: () => NavigationService().push(const PuzzleScreen()),
           ),
           KidsMenuCard(
+            label: 'ABC Game',
+            subtitle: 'Challenge your mind with character',
+            emoji: '🧩',
+            cardColor: const Color(0xFFFFE3E0),
+            iconBgColor: const Color(0xFFFFBCB3),
+            onTap: () => NavigationService().push(AbcGameScreen()),
+          ),
+          KidsMenuCard(
             label: 'Bubble Game',
             subtitle: 'Challenge your mind',
             emoji: '🧩',
-            cardColor: const Color(0xFFE0EEFF),
-            iconBgColor: const Color(0xFFB3D4FF),
+            cardColor: const Color(0xFFE7FFE0),
+            iconBgColor: const Color(0xFFB3FFC2),
             onTap: () => NavigationService().push(BubbleScreen()),
           ),
           KidsMenuCard(

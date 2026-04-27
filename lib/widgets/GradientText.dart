@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,8 +13,8 @@ class GradientText extends StatelessWidget {
     return ShaderMask(
       shaderCallback: (bounds) => const LinearGradient(
         colors: [
-          Color(0xFF6C63FF),
-          Color(0xFFFF0C8F),
+          Color(0xFFFFB84C),
+          Color(0xFFFFB84C),
           Color(0xFFFFB84C),
         ],
       ).createShader(bounds),
