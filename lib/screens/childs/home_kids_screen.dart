@@ -90,7 +90,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
         bool shouldExit = await AppUtils.showExitDialog(context);
 
         if (shouldExit) {
-          Navigator.of(context).pop();
+          SystemNavigator.pop();
         }
       },
       child: Scaffold(
@@ -217,7 +217,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
       child: Column(
         children: [
           // ── safe area top padding ──────────────────────────────
-          SafeArea(bottom: false, child: const SizedBox()),
+          const SafeArea(bottom: false, child: SizedBox()),
 
           Padding(
             padding: const EdgeInsets.fromLTRB(18, 12, 18, 0),
