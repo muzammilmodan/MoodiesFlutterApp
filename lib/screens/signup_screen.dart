@@ -21,32 +21,63 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final _svc           = FirebaseService();
-  final _nameCtrl      = TextEditingController();
-  final _emailCtrl     = TextEditingController();
-  final _pwCtrl        = TextEditingController();
-  final _confirmCtrl   = TextEditingController();
-  final _parentCtrl    = TextEditingController();
-  String _role         = '';
-  bool   _loading      = false;
+  final _svc = FirebaseService();
+  final _nameCtrl = TextEditingController();
+  final _emailCtrl = TextEditingController();
+  final _pwCtrl = TextEditingController();
+  final _confirmCtrl = TextEditingController();
+  final _parentCtrl = TextEditingController();
+  final _ageCtrl = TextEditingController();
+
+  String _role = '';
+  bool _loading = false;
 
   @override
   void dispose() {
-    _nameCtrl.dispose(); _emailCtrl.dispose(); _pwCtrl.dispose();
-    _confirmCtrl.dispose(); _parentCtrl.dispose();
+    _nameCtrl.dispose();
+    _emailCtrl.dispose();
+    _pwCtrl.dispose();
+    _confirmCtrl.dispose();
+    _parentCtrl.dispose();
     super.dispose();
   }
 
   bool _validate() {
-    if (_nameCtrl.text.trim().isEmpty) { _snack('Please enter your full name'); return false; }
-    if (_emailCtrl.text.trim().isEmpty) { _snack('Please enter your email'); return false; }
-    if (!isValidEmail(_emailCtrl.text.trim())) { _snack('Please enter a valid email'); return false; }
-    if (_pwCtrl.text.isEmpty) { _snack('Please enter a password'); return false; }
-    if (_pwCtrl.text.length < 6) { _snack('Password must be at least 6 characters'); return false; }
-    if (_confirmCtrl.text != _pwCtrl.text) { _snack('Passwords do not match'); return false; }
-    if (_role.isEmpty) { _snack('Please select a role'); return false; }
+    if (_nameCtrl.text.trim().isEmpty) {
+      _snack('Please enter your full name');
+      return false;
+    }
+    if (_emailCtrl.text.trim().isEmpty) {
+      _snack('Please enter your email');
+      return false;
+    }
+    if (!isValidEmail(_emailCtrl.text.trim())) {
+      _snack('Please enter a valid email');
+      return false;
+    }
+    if (_pwCtrl.text.isEmpty) {
+      _snack('Please enter a password');
+      return false;
+    }
+    if (_pwCtrl.text.length < 6) {
+      _snack('Password must be at least 6 characters');
+      return false;
+    }
+    if (_confirmCtrl.text != _pwCtrl.text) {
+      _snack('Passwords do not match');
+      return false;
+    }
+    if (_role.isEmpty) {
+      _snack('Please select a role');
+      return false;
+    }
     if (_role == AppConstants.roleKids && _parentCtrl.text.trim().isEmpty) {
-      _snack('Please enter your parent\'s email'); return false;
+      _snack('Please enter your parent\'s email');
+      return false;
+    }
+    if (_role == AppConstants.roleKids && _ageCtrl.text.trim().isEmpty) {
+      _snack('Please enter your age');
+      return false;
     }
     return true;
   }
@@ -54,16 +85,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Future<void> _signUp() async {
     if (!_validate()) return;
     setState(() => _loading = true);
+
     try {
       final user = await _svc.register(
-        name:        _nameCtrl.text.trim(),
-        email:       _emailCtrl.text.trim(),
-        password:    _pwCtrl.text,
+        name: _nameCtrl.text.trim(),
+        email: _emailCtrl.text.trim(),
+        password: _pwCtrl.text,
         parentEmail: _parentCtrl.text.trim(),
-        role:        _role,
+        role: _role,
+        age: _ageCtrl.text.trim(),
       );
       if (!mounted) return;
-      CommonSnackbar.showSuccessSnackbar(context: context,message:"Account created successfully! 🎉");
+      CommonSnackbar.showSuccessSnackbar(
+          context: context, message: "Account created successfully! 🎉");
 
       if (user.isChild == AppConstants.isChildKids) {
         NavigationService().pushAndRemoveAll(const CreateCharacterScreen());
@@ -79,14 +113,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void _snack(String m) => CommonSnackbar.showErrorSnackbar(context: context,message: m);
+  void _snack(String m) =>
+      CommonSnackbar.showErrorSnackbar(context: context, message: m);
 
   String _authError(String code) => switch (code) {
-    'email-already-in-use' => 'This email is already registered.',
-    'weak-password'        => 'Password is too weak.',
-    'invalid-email'        => 'Invalid email format.',
-    _                      => 'Registration failed. Try again.',
-  };
+        'email-already-in-use' => 'This email is already registered.',
+        'weak-password' => 'Password is too weak.',
+        'invalid-email' => 'Invalid email format.',
+        _ => 'Registration failed. Try again.',
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -97,13 +132,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Center(
+              const Center(
                 child: Text(
                   'Create Account',
                   style: TextStyle(
-                      fontFamily: 'ChocoCooky',
-                      fontSize: 34,
-                      color: kAppBg),
+                      fontFamily: 'ChocoCooky', fontSize: 34, color: kAppBg),
                 ),
               ),
               const SizedBox(height: 6),
@@ -149,8 +182,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 12),
               PasswordField(controller: _pwCtrl, hint: 'Password'),
               const SizedBox(height: 12),
-              PasswordField(
-                  controller: _confirmCtrl, hint: 'Confirm Password'),
+              PasswordField(controller: _confirmCtrl, hint: 'Confirm Password'),
+
+              // Parent email — shown only when role = kids
+              if (_role == AppConstants.roleKids) ...[
+                const SizedBox(height: 12),
+                AppTextField(
+                  controller: _ageCtrl,
+                  hint: "Age",
+                  keyboardType: TextInputType.number,
+                ),
+              ],
 
               // Parent email — shown only when role = kids
               if (_role == AppConstants.roleKids) ...[
@@ -174,7 +216,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   const Text('Already have an account? '),
                   GestureDetector(
-                    onTap: () => NavigationService().pushReplacement(const LoginScreen()),
+                    onTap: () => NavigationService()
+                        .pushReplacement(const LoginScreen()),
                     child: const Text('Login',
                         style: TextStyle(
                             color: kAppBg, fontWeight: FontWeight.bold)),

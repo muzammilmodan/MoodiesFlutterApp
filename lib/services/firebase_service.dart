@@ -66,6 +66,7 @@ class FirebaseService {
     required String password,
     required String parentEmail,
     required String role,
+    required String age,
   }) async {
     final cred = await _auth.createUserWithEmailAndPassword(
         email: email.trim(), password: password);
@@ -87,6 +88,7 @@ class FirebaseService {
       isChild:     isChild,
       myCode:        code,
       parentEmail: parentEmail.trim(),
+      age: age.trim(),
     );
 
     await _db.collection(AppConstants.colUsers).doc(uid).set(user.toMap());

@@ -39,7 +39,7 @@ class _CodeForKidsScreenState extends State<CodeForKidsScreen> {
       await _svc.linkChildToParent(child.uid);
       await SessionManager.setIsSelectCode(true);
 
-      CommonSnackbar.showErrorSnackbar(context: context,
+      CommonSnackbar.showSuccessSnackbar(context: context,
           message:("Connected to ${child.name}'s account! 🎉"));
 
       NavigationService().pushAndRemoveAll(const HomeParentScreen());

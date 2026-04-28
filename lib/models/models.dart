@@ -13,6 +13,7 @@ class UserModel {
   final int    isChild;    // 0=parent, 1=kids
   final String myCode;       // unique child linking code
   final String parentEmail;
+  final String age;
 
   UserModel({
     required this.uid,
@@ -22,6 +23,7 @@ class UserModel {
     required this.isChild,
     required this.myCode,
     required this.parentEmail,
+    required this.age,
   });
 
   factory UserModel.fromMap(String uid, Map<String, dynamic> m) => UserModel(
@@ -32,6 +34,7 @@ class UserModel {
     isChild:     m['is_child']     ?? 0,
     myCode:        m['code']         ?? '',
     parentEmail: m['parent_email'] ?? '',
+    age: m['age'] ?? '',
   );
 
   Map<String, dynamic> toMap() => {
@@ -41,6 +44,7 @@ class UserModel {
     'is_child':     isChild,
     'code':         myCode,
     'parent_email': parentEmail,
+    'age': age,
     'created_at':   FieldValue.serverTimestamp(),
   };
 }

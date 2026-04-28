@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:moodiesapp/screens/childs/create_character_screen.dart';
+import 'package:moodiesapp/screens/snakes_ladders/snakes_ladders_screen.dart';
 import 'package:moodiesapp/utils/navigation_service.dart';
 import '../services/firebase_service.dart';
 import '../utils/app_constants.dart';
@@ -14,6 +15,7 @@ import 'login_screen.dart';
 import 'parent/home_parent_screen.dart';
 import 'childs/home_kids_screen.dart';
 import 'parent/code_for_kids_screen.dart';
+import 'package:moodiesapp/screens/snakes_ladders/screens/game_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -33,6 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(
         const Duration(milliseconds: AppConstants.splashTimeout));
     if (!mounted) return;
+
     // Firebase Auth persists login across app restarts automatically
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
@@ -181,6 +184,7 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+
 /*
   @override
   Widget build(BuildContext context) {
