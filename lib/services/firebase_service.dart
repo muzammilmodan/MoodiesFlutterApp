@@ -257,6 +257,50 @@ class FirebaseService {
     return (snap.data() as Map<String, dynamic>)['linked_child_uid'] as String?;
   }
 
+  // ══════════════════════════════════════════════════════════════════════════
+  // PARENT – Read child profile                                    ← NEW
+  // ══════════════════════════════════════════════════════════════════════════
+
+  /// Fetch the linked child's UserModel by their UID.
+  /// Used by HomeParentScreen to display name, age on the dashboard card.
+  Future<UserModel?> getChildProfile(String childUid) async {
+    final snap = await _db
+        .collection(AppConstants.colUsers)
+        .doc(childUid)
+        .get();
+    if (!snap.exists) return null;
+    return UserModel.fromMap(childUid, snap.data() as Map<String, dynamic>);
+  }
+
+
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // PARENT – Upcoming planner events count                         ← NEW
+  // ══════════════════════════════════════════════════════════════════════════
+
+  /// Returns the number of parent-planner events between [startDate] and
+  /// [endDate] (inclusive).  Dates must be in the same string format that
+  /// [addEvent] uses when storing `event_date` (e.g. "yyyy-MM-dd").
+  ///
+  /// Firestore's range operators work correctly here because ISO-8601 date
+  /// strings sort lexicographically identical to chronological order.
+  ///
+  /// Call from the dashboard like:
+  ///   final count = await _svc.getUpcomingEventsCount(
+  ///     startDate: _isoDate(DateTime.now()),
+  ///     endDate:   _isoDate(DateTime.now().add(const Duration(days: 6))),
+  ///   );
+  Future<int> getUpcomingEventsCount({
+    required String startDate,
+    required String endDate,
+  }) async {
+    final snap = await _sub(AppConstants.colEvents)
+        .where('event_date', isGreaterThanOrEqualTo: startDate)
+        .where('event_date', isLessThanOrEqualTo: endDate)
+        .get();
+    return snap.docs.length;
+  }
+
 
   // ══════════════════════════════════════════════════════════════════════════
   // PARENT – Read child's details

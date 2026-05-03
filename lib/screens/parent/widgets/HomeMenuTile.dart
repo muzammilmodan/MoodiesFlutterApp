@@ -1,68 +1,84 @@
+// lib/screens/parent/widgets/HomeMenuTile.dart
 
-// ── Home menu tile ─────────────────────────────────────────────────────────
 import 'package:flutter/material.dart';
-
-import '../../../widgets/common_widgets.dart';
 
 class HomeMenuTile extends StatelessWidget {
   final String label;
+  final String? subtitle;   // ← NEW: optional context line below the label
   final IconData icon;
   final VoidCallback onTap;
+  final Color        cardColor;
 
   const HomeMenuTile({
     super.key,
     required this.label,
     required this.icon,
     required this.onTap,
+    this.subtitle,
+    required this.cardColor,
   });
 
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-    child: GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding:
-        const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(14),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.06),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: kAppBg.withOpacity(0.12),
-                borderRadius: BorderRadius.circular(8),
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.grey.shade200),
+          ),
+          child: Row(
+            children: [
+              // Icon badge
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE1F5EE),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, color: const Color(0xFF0F6E56), size: 20),
               ),
-              child: Icon(icon, color: kAppBg, size: 22),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Text(
-                label,
-                maxLines: 2,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF333333),
+              const SizedBox(width: 14),
+
+              // Label + optional subtitle
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      label,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle!,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ),
-            ),
-            const Spacer(),
-            const Icon(Icons.arrow_forward_ios,
-                color: Colors.grey, size: 14),
-          ],
+
+              // Chevron
+              const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
