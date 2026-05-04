@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../../abc_game/utils/app_theme.dart';
+
 class GameTile extends StatefulWidget {
   final String       emoji;
   final String       label;
@@ -87,7 +89,7 @@ class GameTileState extends State<GameTile>
                   Text(widget.label,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontFamily: 'ChocoCooky',
+                        fontFamily: FontName.ChocoCooky,
                         fontSize: 13,
                         fontWeight: FontWeight.w800,
                         color: Color(0xFF1A1A2E),
@@ -96,7 +98,7 @@ class GameTileState extends State<GameTile>
                   Text(widget.subtitle,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontFamily: 'ChocoCooky',
+                        fontFamily: FontName.ChocoCooky,
                         fontSize: 11,
                         color: Color(0xFF888888),
                       )),

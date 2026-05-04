@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:moodiesapp/screens/abc_game/utils/app_theme.dart';
 import 'package:moodiesapp/screens/abc_game/utils/audio_manager.dart';
 import 'package:moodiesapp/utils/app_constants.dart';
 import '../../utils/navigation_service.dart';
@@ -114,7 +115,7 @@ class _AbcGameScreenState extends State<AbcGameScreen>
             fontSize: 28,
             fontWeight: FontWeight.w900,
             color: Colors.white,
-            fontFamily: 'ChocoCooky',
+            fontFamily: FontName.ChocoCooky,
             shadows: [Shadow(color: Colors.black26, blurRadius: 4, offset: Offset(1, 2))],
           ),
         ),
@@ -134,7 +135,7 @@ class _AbcGameScreenState extends State<AbcGameScreen>
                   fontSize: size,
                   fontWeight: FontWeight.w900,
                   color: Colors.white.withOpacity(opacity),
-                  fontFamily: 'ChocoCooky',
+                  fontFamily: FontName.ChocoCooky,
                 )),
           ),
         ),
@@ -353,7 +354,7 @@ class _AbcGameScreenState extends State<AbcGameScreen>
                                       fontSize: 24,
                                       fontWeight: FontWeight.w900,
                                       color: Color(0xFF7B3F00),
-                                      fontFamily: 'ChocoCooky',
+                                      fontFamily: FontName.ChocoCooky,
                                       letterSpacing: 2,
                                     ),
                                   ),

@@ -310,7 +310,7 @@ class _menuScreen extends State<MenuScreen>with WidgetsBindingObserver {
             Text(
               item["title"],
               textAlign: TextAlign.center,
-              style:   TextStyle(
+              style:  const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
                 fontFamily: FontName.ChocoCooky,

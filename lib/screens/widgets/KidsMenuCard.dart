@@ -3,6 +3,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../abc_game/utils/app_theme.dart';
+
 class KidsMenuCard extends StatefulWidget {
   final String       label;
   final String       subtitle;
@@ -100,7 +102,7 @@ class _KidsMenuCardState extends State<KidsMenuCard>
                       children: [
                         Text(widget.label,
                             style: const TextStyle(
-                              fontFamily: 'ChocoCooky',
+                              fontFamily: FontName.ChocoCooky,
                               fontSize: 15,
                               fontWeight: FontWeight.w800,
                               color: Color(0xFF1A1A2E),
@@ -108,7 +110,7 @@ class _KidsMenuCardState extends State<KidsMenuCard>
                         const SizedBox(height: 2),
                         Text(widget.subtitle,
                             style: const TextStyle(
-                              fontFamily: 'ChocoCooky',
+                              fontFamily: FontName.ChocoCooky,
                               fontSize: 12,
                               color: Color(0xFF888888),
                             )),

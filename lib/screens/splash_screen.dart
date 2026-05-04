@@ -8,9 +8,11 @@ import 'package:moodiesapp/screens/snakes_ladders/snakes_ladders_screen.dart';
 import 'package:moodiesapp/utils/navigation_service.dart';
 import '../services/firebase_service.dart';
 import '../utils/app_constants.dart';
+import '../utils/app_enum.dart';
 import '../utils/session_manager.dart';
 import '../widgets/CurvedMoodiesText.dart';
 import '../widgets/common_widgets.dart';
+import 'abc_game/utils/app_theme.dart';
 import 'login_screen.dart';
 import 'parent/home_parent_screen.dart';
 import 'childs/home_kids_screen.dart';
@@ -48,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
       final profile = await FirebaseService().getUserProfile();
       await SessionManager.setSelectRole(profile.role);
 
-      if (profile.role == AppConstants.roleParent) {
+      if (profile.role == UserType.parent.name) {
         final codeDone = await SessionManager.getIsSelectCode();
         NavigationService().pushReplacement(codeDone ? const HomeParentScreen() : const CodeForKidsScreen());
       } else {
@@ -95,16 +97,16 @@ class _SplashScreenState extends State<SplashScreen> {
                       children: [
                         TextSpan(
                           text: "M",
-                          style: TextStyle(fontFamily: 'ChocoCooky',
+                          style: TextStyle(fontFamily: FontName.ChocoCooky,
                               color: Colors.teal, fontSize: 60, fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
                           text: "ood",
-                          style: TextStyle(fontFamily: 'ChocoCooky',color: Colors.orange, fontSize: 40, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontFamily: FontName.ChocoCooky,color: Colors.orange, fontSize: 40, fontWeight: FontWeight.bold),
                         ),
                         TextSpan(
                           text: "ies",
-                          style: TextStyle(fontFamily: 'ChocoCooky',color: Colors.purple, fontSize: 60, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontFamily:FontName.ChocoCooky,color: Colors.purple, fontSize: 60, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -121,7 +123,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: const Text(
                       "Your happiness buddy",
                       style: TextStyle(
-                        fontFamily: 'ChocoCooky',
+                        fontFamily: FontName.ChocoCooky,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white, // IMPORTANT (base color)

@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/models.dart';
 import '../utils/app_constants.dart';
+import '../utils/app_enum.dart';
 import '../utils/session_manager.dart';
 
 class FirebaseService {
@@ -75,7 +76,7 @@ class FirebaseService {
     await Future.delayed(const Duration(milliseconds: 300));
 
     final uid     = cred.user!.uid;
-    final isChild = role == AppConstants.roleKids
+    final isChild = role == UserType.kides.name
         ? AppConstants.isChildKids
         : AppConstants.isChildParent;
     final code = _generateCode();

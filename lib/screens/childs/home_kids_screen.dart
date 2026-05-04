@@ -16,6 +16,7 @@ import '../../utils/navigation_service.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/common_widgets.dart';
 import '../abc_game/abc_game_screen.dart';
+import '../abc_game/utils/app_theme.dart';
 import '../image_colors/open_color_screen.dart';
 import '../login_screen.dart';
 import 'feeling_today_screen.dart';
@@ -195,7 +196,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
     child: Text(
       text,
       style: const TextStyle(
-        fontFamily: 'ChocoCooky',
+        fontFamily:FontName.ChocoCooky,
         fontSize: 13,
         fontWeight: FontWeight.w800,
         color: Color(0xFF9B8EC4),
@@ -247,7 +248,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          fontFamily: 'ChocoCooky',
+                          fontFamily: FontName.ChocoCooky,
                           fontSize: 20,
                           fontWeight: FontWeight.w800,
                           color: Colors.white,
@@ -259,7 +260,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             color: Colors.white70,
-                            fontFamily: 'ChocoCooky'),
+                            fontFamily: FontName.ChocoCooky),
                       ),
                     ],
                   ),
@@ -309,7 +310,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white70,
                                 letterSpacing: 1.2,
-                                fontFamily: 'ChocoCooky',
+                                fontFamily: FontName.ChocoCooky,
                               )),
                           const SizedBox(height: 2),
                           Text(_myCode,
@@ -318,7 +319,7 @@ class _HomeKidsScreenState extends State<HomeKidsScreen> {
                                 fontWeight: FontWeight.w900,
                                 color: Colors.white,
                                 letterSpacing: 3,
-                                fontFamily: 'ChocoCooky',
+                                fontFamily: FontName.ChocoCooky,
                               )),
                         ],
                       ),

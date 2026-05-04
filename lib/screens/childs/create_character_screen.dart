@@ -7,6 +7,7 @@ import '../../utils/app_constants.dart';
 import '../../utils/navigation_service.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/common_widgets.dart';
+import '../abc_game/utils/app_theme.dart';
 import 'home_kids_screen.dart';
 
 enum _Step { gender, hair, skin }
@@ -232,7 +233,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
     mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text('Choose Your Character',
-              style: TextStyle(fontFamily: 'ChocoCooky',fontSize: 22,
+              style: TextStyle(fontFamily: FontName.ChocoCooky,fontSize: 22,
                   fontWeight: FontWeight.bold)),
           const SizedBox(height: 70),
           Row(
@@ -275,7 +276,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
     return Column(
       children: [
         const Text('Choose Hair Colour',
-            style: TextStyle(fontFamily: 'ChocoCooky', fontSize: 22, fontWeight: FontWeight.bold)),
+            style: TextStyle(fontFamily: FontName.ChocoCooky, fontSize: 22, fontWeight: FontWeight.bold)),
         const SizedBox(height: 20),
         Wrap(
           alignment: WrapAlignment.center,
@@ -374,7 +375,7 @@ class _CreateCharacterScreenState extends State<CreateCharacterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create My Character',style: TextStyle(fontFamily: 'ChocoCooky',),)),
+      appBar: AppBar(title: const Text('Create My Character',style: TextStyle(fontFamily: FontName.ChocoCooky,),)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: () {

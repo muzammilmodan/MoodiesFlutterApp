@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../screens/abc_game/utils/app_theme.dart';
+
 class HeaderTitleText extends StatelessWidget {
   HeaderTitleText({super.key, this.title});
 
@@ -10,7 +12,7 @@ class HeaderTitleText extends StatelessWidget {
     return Text(
       title ?? '',
       style: const TextStyle(
-          fontFamily: 'ChocoCooky'),
+          fontFamily: FontName.ChocoCooky),
       textAlign: TextAlign.start,
     );
   }

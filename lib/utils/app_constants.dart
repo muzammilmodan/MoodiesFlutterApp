@@ -26,8 +26,8 @@ class AppConstants {
   static const int isChildKids   = 1;
 
   // Roles
-  static const String roleParent = 'parent';
-  static const String roleKids   = 'kides';
+  // static const String roleParent = 'parent';
+  // static const String roleKids   = 'kides';
 
   // Moods list
   static const List<String> moods = [

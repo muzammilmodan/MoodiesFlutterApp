@@ -1,6 +1,7 @@
 // lib/widgets/common_widgets.dart
 
 import 'package:flutter/material.dart';
+import '../screens/abc_game/utils/app_theme.dart';
 import '../utils/app_constants.dart';
 
 const Color kAppBg = Color(AppConstants.appBgColorValue);
@@ -62,7 +63,7 @@ class AppButton extends StatelessWidget {
               color: textColor ?? kWhite,
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              fontFamily: 'ChocoCooky',
+              fontFamily: FontName.ChocoCooky,
             ),
           ),
         ),

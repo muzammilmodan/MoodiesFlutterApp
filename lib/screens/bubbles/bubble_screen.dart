@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 import '../../utils/navigation_service.dart';
+import '../abc_game/utils/app_theme.dart';
 import '../childs/home_kids_screen.dart';
 import 'code_files.dart';
 
@@ -149,7 +150,7 @@ class _BubbleScreenState extends State<BubbleScreen> {
       //                ),
                   Text(
                     'Pop the ${_getRule(rule ?? "", ruleColorName ?? "", ruleNumber ?? 0)}',
-                    style: TextStyle(fontFamily: 'ChocoCooky', fontSize: 22),
+                    style: const TextStyle(fontFamily: FontName.ChocoCooky, fontSize: 22),
                   ),
                   GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
